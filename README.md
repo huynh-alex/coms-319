@@ -1,6 +1,6 @@
 # Com S 319
 
-Authors: Alex Huynh and Alex Christie
+Authors: Alex Huynh and Alex Christie (Team 59)
 
 ---
 
