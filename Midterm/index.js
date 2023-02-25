@@ -61,9 +61,7 @@ function buildJson() {
         })
 }
 
-function injectVideos(videos) {
-    console.log(videos);
-    let video = videos[0];
+function injectVideos(video) {
     var videoInfoDiv = document.getElementById(`video-info`);
     videoInfoDiv.innerHTML = `
         <img src=${video.thumbnail}>
@@ -88,7 +86,23 @@ async function getVideoDataFromJson() {
     return videos;
 }
 
+let currentIndex = 0;
+let videos = [];
 getVideoDataFromJson()
-    .then((videos) => {
-        injectVideos(videos);
+    .then((videoDataFromJson) => {
+        videos = videoDataFromJson;
+        injectVideos(videos[currentIndex]);
     })
+
+let prevButton = document.getElementById("prevButton");
+let nextButton = document.getElementById("nextButton");
+
+nextButton.addEventListener("click", () => {
+  currentIndex = (currentIndex + 1) % videos.length;
+  injectVideos(videos[currentIndex]);
+});
+
+prevButton.addEventListener("click", () => {
+  currentIndex = (currentIndex - 1 + videos.length) % videos.length;
+  injectVideos(videos[currentIndex]);
+});
