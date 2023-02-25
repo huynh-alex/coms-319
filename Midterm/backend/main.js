@@ -11,7 +11,7 @@ function getVideoId(url) {
 }
 
 function getVideoInfo(videoId, API_KEY, callback) {
-    var url = 'https://www.googleapis.com/youtube/v3/videos?id=' + videoId + '&key=' + API_KEY + '&part=snippet,contentDetails';
+    var url = `https://www.googleapis.com/youtube/v3/videos?id=${videoId}&key=${API_KEY}&part=snippet,contentDetails`;
     var xhr = new XMLHttpRequest();
     xhr.open('GET', url, true);
     xhr.onload = function () {
@@ -43,7 +43,7 @@ function convertToMinsAndSecs(duration) {
 var urls = [
     'https://www.youtube.com/watch?v=jvKlzYeW2SA',
     'https://www.youtube.com/watch?v=CYdkHMJIGek',
-    'https://www.youtube.com/watch?v=PW3gFuPwA3s',
+    'https://www.youtube.com/watch?v=ygJgQAYZVi0',
     'https://www.youtube.com/watch?v=SSzegrjvxX4',
     'https://www.youtube.com/watch?v=Lgs9QUtWc3M',
     'https://www.youtube.com/watch?v=6FEDrU85FLE'
@@ -52,21 +52,22 @@ var urls = [
 for (let i = 0; i < urls.length; i++) {
     var videoId = getVideoId(urls[i]);
     if (videoId) {
-    getVideoInfo(videoId, API_KEY, function (data) {
-        var videoInfoDiv = document.getElementById(`video-info${i+1}`);
-        videoInfoDiv.innerHTML =
-            '<img src="' + data.thumbnail + '">' +
-            '<div class="card-body">' +
-            '<h4 class="card-text" style="overflow: hidden;white-space: nowrap; text-overflow: ellipsis;">' + data.title + '</h4>' +
-            '</div>' +
-            '<div style="padding:15px" class="d-flex justify-content-between align-items-center">' +
-            '<div class="btn-group">' +
-            '<button type="button" class="btn btn-sm btn-outline-secondary">' +
-            'Watch' +
-            '</button>' +
-            '</div>' +
-            '<small class="text-muted">' + convertToMinsAndSecs(data.duration) + '</small>' +
-            '</div>';
-    });
-}
+        getVideoInfo(videoId, API_KEY, function (data) {
+            var videoInfoDiv = document.getElementById(`video-info${i + 1}`);
+            videoInfoDiv.innerHTML = `
+                <img src=${data.thumbnail}>
+                <div class="card-body">
+                    <h4 class="card-text" style="overflow: hidden;white-space: nowrap; text-overflow: ellipsis;"> ${data.title}</h4>
+                </div>
+                <div style="padding:15px" class="d-flex justify-content-between align-items-center">
+                    <div class="btn-group">
+                        <button type="button" class="btn btn-sm btn-outline-secondary">
+                            Watch
+                        </button>
+                    </div>
+                    <small class="text-muted"> ${convertToMinsAndSecs(data.duration)}</small>
+                </div>
+            `; 
+        });
+    }
 }
