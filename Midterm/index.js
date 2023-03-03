@@ -90,6 +90,7 @@ function injectVideos(video) {
         var videoThumbnail = document.getElementById(`video-thumbnail`);
         videoThumbnail.style.display = "none";
     });
+    setPrevAndNextButtons();
 }
 
 function convertYouTubeUrl(url) {
@@ -106,7 +107,7 @@ async function getVideoDataFromJson() {
         }
     }
     catch {
-        response = await fetch('../data.json');
+        return null;
     }
     const json = await response.json();
     const videos = json.data.map(video => video);
@@ -116,24 +117,27 @@ async function getVideoDataFromJson() {
 let currentIndex = 0;
 let videos = [];
 
-let prevButton = document.getElementById("prevButton");
-let nextButton = document.getElementById("nextButton");
 
-nextButton.addEventListener("click", () => {
-    currentIndex = (currentIndex + 1) % videos.length;
-    injectVideos(videos[currentIndex]);
-});
+function setPrevAndNextButtons() {
+    let prevButton = document.getElementById("prevButton");
+    let nextButton = document.getElementById("nextButton");
 
-prevButton.addEventListener("click", () => {
-    currentIndex = (currentIndex - 1 + videos.length) % videos.length;
-    injectVideos(videos[currentIndex]);
-});
+    nextButton.addEventListener("click", () => {
+        currentIndex = (currentIndex + 1) % videos.length;
+        injectVideos(videos[currentIndex]);
+    });
+
+    prevButton.addEventListener("click", () => {
+        currentIndex = (currentIndex - 1 + videos.length) % videos.length;
+        injectVideos(videos[currentIndex]);
+    });
+}
 
 
-getVideoDataFromJson()
-    .then(function (videoDataFromJson) {
-        if (window.location.pathname.includes('/music.html')) {
+if (window.location.pathname.includes('/music.html')) {
+    getVideoDataFromJson()
+        .then(function (videoDataFromJson) {
             videos = videoDataFromJson;
             injectVideos(videos[currentIndex]);
-        }
-    });
+        })
+}
