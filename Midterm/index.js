@@ -98,7 +98,7 @@ function convertYouTubeUrl(url) {
     return 'https://www.youtube.com/embed/' + videoId;
 }
 
-async function getVideoDataFromJson() {
+async function getVideoDataFromJson(category) {
     var response;
     try {
         response = await fetch('../data.json');
@@ -110,8 +110,8 @@ async function getVideoDataFromJson() {
         return null;
     }
     const json = await response.json();
-    const videos = json.data.map(video => video);
-    return videos;
+    var filteredVideos = json.data.filter(video => video.category === "music");
+    return filteredVideos;
 }
 
 let currentIndex = 0;
@@ -135,7 +135,7 @@ function setPrevAndNextButtons() {
 
 
 if (window.location.pathname.includes('/music.html')) {
-    getVideoDataFromJson()
+    getVideoDataFromJson('music')
         .then(function (videoDataFromJson) {
             videos = videoDataFromJson;
             injectVideos(videos[currentIndex]);
