@@ -65,7 +65,6 @@ function buildJson() {
 function injectVideos(video) {
     var videoInfoDiv = document.getElementById(`video-info`);
     var embedUrl = convertYouTubeUrl(video.videoUrl);
-    console.log(embedUrl);
     videoInfoDiv.innerHTML = `
     <img height="480px" width="720px" style="display: block; margin: auto;" id=video-thumbnail src=${video.thumbnail}>
     <iframe frameborder="0" allowfullscreen id=video-frame style="display: none" src=${embedUrl}></iframe>
@@ -86,8 +85,8 @@ function injectVideos(video) {
         var videoFrame = document.getElementById(`video-frame`);
         videoFrame.style.display = "block";
         videoFrame.style.margin = "auto";
-        videoFrame.style.height="480px";
-        videoFrame.style.width="720px";
+        videoFrame.style.height = "480px";
+        videoFrame.style.width = "720px";
         var videoThumbnail = document.getElementById(`video-thumbnail`);
         videoThumbnail.style.display = "none";
     });
@@ -95,12 +94,20 @@ function injectVideos(video) {
 
 function convertYouTubeUrl(url) {
     var videoId = url.split('v=')[1];
-    var embedUrl = 'https://www.youtube.com/embed/' + videoId;
-    return embedUrl;
+    return 'https://www.youtube.com/embed/' + videoId;
 }
 
 async function getVideoDataFromJson() {
-    const response = await fetch('./data.json');
+    var response;
+    try {
+        response = await fetch('../data.json');
+        if (!response.ok) {
+            throw new Error('');
+        }
+    }
+    catch {
+        response = await fetch('../data.json');
+    }
     const json = await response.json();
     const videos = json.data.map(video => video);
     return videos;
@@ -108,11 +115,6 @@ async function getVideoDataFromJson() {
 
 let currentIndex = 0;
 let videos = [];
-getVideoDataFromJson()
-    .then((videoDataFromJson) => {
-        videos = videoDataFromJson;
-        injectVideos(videos[currentIndex]);
-    })
 
 let prevButton = document.getElementById("prevButton");
 let nextButton = document.getElementById("nextButton");
@@ -126,3 +128,12 @@ prevButton.addEventListener("click", () => {
     currentIndex = (currentIndex - 1 + videos.length) % videos.length;
     injectVideos(videos[currentIndex]);
 });
+
+
+getVideoDataFromJson()
+    .then(function (videoDataFromJson) {
+        if (window.location.pathname.includes('/music.html')) {
+            videos = videoDataFromJson;
+            injectVideos(videos[currentIndex]);
+        }
+    });
