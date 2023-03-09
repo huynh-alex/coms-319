@@ -62,37 +62,6 @@ function buildJson() {
         })
 }
 
-function injectVideos(video) {
-    var videoInfoDiv = document.getElementById(`video-info`);
-    var embedUrl = convertYouTubeUrl(video.videoUrl);
-    videoInfoDiv.innerHTML = `
-    <img height="480px" width="720px" style="display: block; margin: auto;" id=video-thumbnail src=${video.thumbnail}>
-    <iframe frameborder="0" allowfullscreen id=video-frame style="display: none" src=${embedUrl}></iframe>
-    <div class="card-body">
-            <h4 class="card-text" style="overflow: hidden;white-space: nowrap; text-overflow: ellipsis;"> ${video.title}</h4>
-        </div>
-        <div style="padding:15px" class="d-flex justify-content-between align-items-center">
-            <div class="btn-group">
-                <button id="watch-button" type="button" class="btn btn-sm btn-outline-secondary">
-                    Watch
-                </button>
-            </div>
-            <small class="text-muted"> ${convertToMinsAndSecs(video.duration)}</small>
-        </div>
-    `;
-    var watchVideoButton = document.getElementById(`watch-button`);
-    watchVideoButton.addEventListener("click", () => {
-        var videoFrame = document.getElementById(`video-frame`);
-        videoFrame.style.display = "block";
-        videoFrame.style.margin = "auto";
-        videoFrame.style.height = "480px";
-        videoFrame.style.width = "720px";
-        var videoThumbnail = document.getElementById(`video-thumbnail`);
-        videoThumbnail.style.display = "none";
-    });
-    setPrevAndNextButtons();
-}
-
 function convertYouTubeUrl(url) {
     var videoId = url.split('v=')[1];
     return 'https://www.youtube.com/embed/' + videoId;
@@ -114,9 +83,59 @@ async function getVideoDataFromJson(category) {
     return filteredVideos;
 }
 
+function createVideoHTML(video) {
+    let embedUrl = convertYouTubeUrl(video.videoUrl);
+    const html = `
+      <img height="480px" width="720px" style="display: block; margin: auto;" id="video-thumbnail" src="${video.thumbnail}">
+      <iframe frameborder="0" allowfullscreen id="video-frame" style="display: none" src="${embedUrl}"></iframe>
+      <div class="card-body">
+        <h4 class="card-text" style="overflow: hidden;white-space: nowrap; text-overflow: ellipsis;">${video.title}</h4>
+      </div>
+      <div style="padding:15px" class="d-flex justify-content-between align-items-center">
+        <div class="btn-group">
+          <button id="watch-button" type="button" class="btn btn-sm btn-outline-secondary">Watch</button>
+        </div>
+        <small class="text-muted">${convertToMinsAndSecs(video.duration)}</small>
+      </div>
+    `;
+    console.log(html);
+    return html;
+}
+
+function showVideo() {
+    const videoFrame = document.getElementById("video-frame");
+    videoFrame.style.display = "block";
+    videoFrame.style.margin = "auto";
+    videoFrame.style.height = "480px";
+    videoFrame.style.width = "720px";
+    const videoThumbnail = document.getElementById("video-thumbnail");
+    videoThumbnail.style.display = "none";
+}
+
+function setWatchButton() {
+    if (videosHTML.length > 0) {
+        const watchVideoButton = document.getElementById("watch-button");
+        watchVideoButton.addEventListener("click", showVideo);
+    }
+}
+
+function populateVideosHTML(videos) {
+    for (let video of videos) {
+        const videoHTML = createVideoHTML(video);
+        videosHTML.push(videoHTML);
+    }
+    setPrevAndNextButtons();
+}
+
+function showVideoHTML(videoHTML) {
+    const videoInfoDiv = document.getElementById("video-info");
+    videoInfoDiv.innerHTML = videoHTML;
+    setWatchButton();
+}
+
 let currentIndex = 0;
 let videos = [];
-
+let videosHTML = [];
 
 function setPrevAndNextButtons() {
     let prevButton = document.getElementById("prevButton");
@@ -124,20 +143,21 @@ function setPrevAndNextButtons() {
 
     nextButton.addEventListener("click", () => {
         currentIndex = (currentIndex + 1) % videos.length;
-        injectVideos(videos[currentIndex]);
+        showVideoHTML(videosHTML[currentIndex]);
+
     });
 
     prevButton.addEventListener("click", () => {
         currentIndex = (currentIndex - 1 + videos.length) % videos.length;
-        injectVideos(videos[currentIndex]);
+        showVideoHTML(videosHTML[currentIndex]);
     });
 }
-
 
 if (window.location.pathname.includes('/music.html')) {
     getVideoDataFromJson('music')
         .then(function (videoDataFromJson) {
             videos = videoDataFromJson;
-            injectVideos(videos[currentIndex]);
+            populateVideosHTML(videos);
+            showVideoHTML(videosHTML[0]);
         })
 }
