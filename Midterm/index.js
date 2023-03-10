@@ -46,7 +46,7 @@ function buildJson() {
     let jsonObject = {
         data: []
     };
-    fetch('./urls.json')
+    fetch('../urls.json')
         .then((response) => response.json())
         .then((json) => {
             for (let category in json) {
@@ -79,7 +79,17 @@ async function getVideoDataFromJson(category) {
         return null;
     }
     const json = await response.json();
-    var filteredVideos = json.data.filter(video => video.category === "music");
+
+    if (window.location.pathname.includes('/funny.html')) {
+        var filteredVideos = json.data.filter(video => video.category === "funny");
+    }
+    else if(window.location.pathname.includes('/music.html')){
+        var filteredVideos = json.data.filter(video => video.category === "music");
+    }
+    else {
+        var filteredVideos = json.data.filter(video => video.category === "food");
+    }
+
     return filteredVideos;
 }
 
@@ -160,4 +170,26 @@ if (window.location.pathname.includes('/music.html')) {
             populateVideosHTML(videos);
             showVideoHTML(videosHTML[0]);
         })
+}
+
+if (window.location.pathname.includes('/funny.html')) {
+
+    buildJson();
+    getVideoDataFromJson('funny')
+    .then(function (videoDataFromJson) {
+        videos = videoDataFromJson;
+        populateVideosHTML(videos);
+        showVideoHTML(videosHTML[0]);
+    })
+}
+
+if (window.location.pathname.includes('/food.html')) {
+
+    buildJson();
+    getVideoDataFromJson('food')
+    .then(function (videoDataFromJson) {
+        videos = videoDataFromJson;
+        populateVideosHTML(videos);
+        showVideoHTML(videosHTML[0]);
+    })
 }
