@@ -1,5 +1,3 @@
-import { API_KEY } from './config.js';
-
 function getVideoId(url) {
     var regExp = /^.*(youtu.be\/|v\/|u\/\w\/|embed\/|watch\?v=|v=)([^#\&\?]*).*/;
     var match = url.match(regExp);
@@ -42,24 +40,33 @@ function getVideoDataFromUrl(category, videoUrl, API_KEY, callback) {
     xhr.send(null);
 }
 
-function buildJson() {
-    let jsonObject = {
-        data: []
-    };
-    fetch('../urls.json')
-        .then((response) => response.json())
-        .then((json) => {
-            for (let category in json) {
-                for (let videoUrl of json[category]) {
-                    getVideoDataFromUrl(category, videoUrl, API_KEY, (videoData) => {
-                        console.log(videoData)
-                        jsonObject.data.push(videoData);
-                        // copy and paste this into data.json and re-format
-                        console.log(JSON.stringify(jsonObject));
-                    });
+// This is used to build data.json
+async function buildJson() {
+    var API_KEY;
+    try {
+        let config = await import('./config.js');
+        API_KEY = config.API_KEY;
+        let jsonObject = {
+            data: []
+        };
+        fetch('./urls.json')
+            .then((response) => response.json())
+            .then((json) => {
+                for (let category in json) {
+                    for (let videoUrl of json[category]) {
+                        getVideoDataFromUrl(category, videoUrl, API_KEY, (videoData) => {
+                            jsonObject.data.push(videoData);
+                            // Copy and paste the output below from the console into data.json
+                            // Then re-format
+                            console.log(JSON.stringify(jsonObject));
+                        });
+                    }
                 }
-            }
-        })
+            })
+    }
+    catch (err) {
+        console.log(err);
+    }   
 }
 
 function convertYouTubeUrl(url) {
@@ -80,14 +87,8 @@ async function getVideoDataFromJson(category) {
     }
     const json = await response.json();
 
-    if (window.location.pathname.includes('/funny.html')) {
-        var filteredVideos = json.data.filter(video => video.category === "funny");
-    }
-    else if(window.location.pathname.includes('/music.html')){
-        var filteredVideos = json.data.filter(video => video.category === "music");
-    }
-    else {
-        var filteredVideos = json.data.filter(video => video.category === "food");
+    if (window.location.pathname.includes(`/${category}.html`)) {
+        var filteredVideos = json.data.filter(video => video.category === category);
     }
 
     return filteredVideos;
@@ -108,7 +109,6 @@ function createVideoHTML(video) {
         <small class="text-muted">${convertToMinsAndSecs(video.duration)}</small>
       </div>
     `;
-    console.log(html);
     return html;
 }
 
@@ -173,23 +173,19 @@ if (window.location.pathname.includes('/music.html')) {
 }
 
 if (window.location.pathname.includes('/funny.html')) {
-
-    buildJson();
     getVideoDataFromJson('funny')
-    .then(function (videoDataFromJson) {
-        videos = videoDataFromJson;
-        populateVideosHTML(videos);
-        showVideoHTML(videosHTML[0]);
-    })
+        .then(function (videoDataFromJson) {
+            videos = videoDataFromJson;
+            populateVideosHTML(videos);
+            showVideoHTML(videosHTML[0]);
+        })
 }
 
 if (window.location.pathname.includes('/food.html')) {
-
-    buildJson();
     getVideoDataFromJson('food')
-    .then(function (videoDataFromJson) {
-        videos = videoDataFromJson;
-        populateVideosHTML(videos);
-        showVideoHTML(videosHTML[0]);
-    })
+        .then(function (videoDataFromJson) {
+            videos = videoDataFromJson;
+            populateVideosHTML(videos);
+            showVideoHTML(videosHTML[0]);
+        })
 }
