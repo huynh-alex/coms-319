@@ -16,7 +16,7 @@ function convertToMinsAndSecs(duration) {
     var totalSeconds = (hours * 60 * 60) + (minutes * 60) + seconds;
     var mins = Math.floor(totalSeconds / 60);
     var secs = totalSeconds % 60;
-    return `Duration: ${mins}:${secs}`;
+    return secs >= 10 ? `Duration: ${mins}:${secs}` : `Duration: ${mins}:0${secs}`
 }
 
 function getVideoDataFromUrl(category, videoUrl, API_KEY, callback) {
@@ -66,7 +66,7 @@ async function buildJson() {
     }
     catch (err) {
         console.log(err);
-    }   
+    }
 }
 
 function convertYouTubeUrl(url) {
