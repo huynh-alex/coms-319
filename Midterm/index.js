@@ -106,7 +106,7 @@ function createVideoHTML(video) {
   <div class="card-body" style = "background-color:darkslategrey">
   <h4 class="card-text" style="overflow: hidden;white-space: nowrap; text-overflow: ellipsis; color: white;">${video.title}</h4>
 </div>
-      <img height="480px" width="720px" style="background-color:darkgrey; display: block; margin: auto;" id="video-thumbnail" src="${video.thumbnail}">
+      <img height="480px" width="720px" style="background-color:darkgrey; display: block; margin: 20px auto;" id="video-thumbnail" src="${video.thumbnail}">
       <iframe frameborder="0" allowfullscreen id="video-frame" style="display: none" src="${embedUrl}"></iframe>
 
      
@@ -118,6 +118,7 @@ function showVideo() {
     const videoFrame = document.getElementById("video-frame");
     videoFrame.style.display = "block";
     videoFrame.style.margin = "auto";
+    videoFrame.style.margin = "20px auto";
     videoFrame.style.height = "480px";
     videoFrame.style.width = "720px";
     const videoThumbnail = document.getElementById("video-thumbnail");
