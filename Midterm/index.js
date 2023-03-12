@@ -96,17 +96,19 @@ async function getVideoDataFromJson(category) {
 function createVideoHTML(video) {
     let embedUrl = convertYouTubeUrl(video.videoUrl);
     const html = `
-      <img height="480px" width="720px" style="display: block; margin: auto;" id="video-thumbnail" src="${video.thumbnail}">
+    <div style="padding:10px; background-color:darkslategrey" class="d-flex justify-content-between align-items-center">
+    <div class="btn-group">
+      <button id="watch-button" type="button" class="btn btn-sm btn-outline-secondary" style="color: white; background-color:darkgrey;">Watch</button>
+    </div>
+    <small style="color: white;">${convertToMinsAndSecs(video.duration)}</small>
+  </div>
+  <div class="card-body" style = "background-color:darkslategrey">
+  <h4 class="card-text" style="overflow: hidden;white-space: nowrap; text-overflow: ellipsis; color: white;">${video.title}</h4>
+</div>
+      <img height="480px" width="720px" style="background-color:darkgrey; display: block; margin: auto;" id="video-thumbnail" src="${video.thumbnail}">
       <iframe frameborder="0" allowfullscreen id="video-frame" style="display: none" src="${embedUrl}"></iframe>
-      <div class="card-body">
-        <h4 class="card-text" style="overflow: hidden;white-space: nowrap; text-overflow: ellipsis;">${video.title}</h4>
-      </div>
-      <div style="padding:15px" class="d-flex justify-content-between align-items-center">
-        <div class="btn-group">
-          <button id="watch-button" type="button" class="btn btn-sm btn-outline-secondary">Watch</button>
-        </div>
-        <small class="text-muted">${convertToMinsAndSecs(video.duration)}</small>
-      </div>
+
+     
     `;
     console.log(html);
     return html;
