@@ -5,7 +5,7 @@ import { Products } from "./Products";
 
 export function App() {
   const [products, setProducts] = useState(Products);
-  const [cart, setCart] = useState([]);
+  const [cart, setCart] = useState(Object.fromEntries(Products.map(product => [product.name, 0])));
 
   function handleSearchChange(event) {
     if (event) {
@@ -14,6 +14,10 @@ export function App() {
       );
       setProducts(filtered);
     }
+  }
+
+  function addToCart(product) {
+    console.log(product);
   }
 
   return (
@@ -34,7 +38,7 @@ export function App() {
       <div className="mx-auto max-w-2xl py-16 px-4 sm:py-24 sm:px-6 lg:max-w-7xl lg:px-8">
         <div className="mt-6 grid grid-cols-1 gap-y-10 gap-x-6 sm:grid-cols-2 lg:grid-cols-4 xl:gap-x-8">
           {products.map((product) => (
-            <div key={product.id} className="group relative">
+            <div key={product.id}>
               <div className="w-full overflow-hidden rounded-md bg-gray-100 lg:h-50">
                 <img
                   src={product.imageSrc}
@@ -56,12 +60,12 @@ export function App() {
                 </p>
               </div>
               <br></br>
-              <div class="flex items-center justify-center">
-                <button class=" bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 border border-blue-700 rounded">
+              <div className="flex items-center justify-center">
+                <button className=" bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 border border-blue-700 rounded">
                   -
                 </button>
                 <span>&emsp; 0 &emsp;</span>
-                <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 border border-blue-700 rounded">
+                <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 border border-blue-700 rounded">
                   +
                 </button>
               </div>
