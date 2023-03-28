@@ -5,13 +5,16 @@ import { Products } from "./Products";
 
 export function App() {
   const [products, setProducts] = useState(Products);
+  const [cart, setCart] = useState([]);
 
   function handleSearchChange(event) {
-    if(event){
-      let filtered = Products.filter((product) => ((product.name).toLowerCase()).includes((event.target.value).toLowerCase()));
+    if (event) {
+      let filtered = Products.filter((product) =>
+        product.name.toLowerCase().includes(event.target.value.toLowerCase())
+      );
       setProducts(filtered);
     }
-  };
+  }
 
   return (
     <div className="bg-white">
@@ -32,7 +35,7 @@ export function App() {
         <div className="mt-6 grid grid-cols-1 gap-y-10 gap-x-6 sm:grid-cols-2 lg:grid-cols-4 xl:gap-x-8">
           {products.map((product) => (
             <div key={product.id} className="group relative">
-              <div className="w-full overflow-hidden rounded-md bg-gray-100 group-hover:opacity-75 lg:h-50">
+              <div className="w-full overflow-hidden rounded-md bg-gray-100 lg:h-50">
                 <img
                   src={product.imageSrc}
                   alt={product.name}
@@ -51,6 +54,16 @@ export function App() {
                 <p className="text-sm font-medium text-gray-900">
                   {product.price}
                 </p>
+              </div>
+              <br></br>
+              <div class="flex items-center justify-center">
+                <button class=" bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 border border-blue-700 rounded">
+                  -
+                </button>
+                <span>&emsp; 0 &emsp;</span>
+                <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 border border-blue-700 rounded">
+                  +
+                </button>
               </div>
             </div>
           ))}
