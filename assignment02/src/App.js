@@ -1,11 +1,11 @@
-import "./App.css";
 import React, { useState } from "react";
-
 import { Products } from "./Products";
 
 export function App() {
   const [products, setProducts] = useState(Products);
-  const [cart, setCart] = useState(Object.fromEntries(Products.map(product => [product.name, 0])));
+  const [cart, setCart] = useState(
+    Object.fromEntries(Products.map((product) => [product.name, 0]))
+  );
 
   function handleSearchChange(event) {
     if (event) {
@@ -48,12 +48,7 @@ export function App() {
               </div>
               <div className="mt-4 flex justify-between">
                 <div>
-                  <h3 className="text-sm text-gray-700">
-                    <a>
-                      <span aria-hidden="true" className="absolute inset-0" />
-                      {product.name}
-                    </a>
-                  </h3>
+                  <h3 className="text-sm text-gray-700">{product.name}</h3>
                 </div>
                 <p className="text-sm font-medium text-gray-900">
                   {product.price}
@@ -61,11 +56,11 @@ export function App() {
               </div>
               <br></br>
               <div className="flex items-center justify-center">
-                <button className=" bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 border border-blue-700 rounded">
+                <button onClick={()=>addToCart(product.name)} className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 border border-blue-700 rounded">
                   -
                 </button>
                 <span>&emsp; 0 &emsp;</span>
-                <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 border border-blue-700 rounded">
+                <button onClick={()=>addToCart(product.name)} className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 border border-blue-700 rounded">
                   +
                 </button>
               </div>
