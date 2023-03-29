@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { Products } from "./Products";
 
-export function App() {
+export function Browse() {
   const [products, setProducts] = useState(Products);
   const [cart, setCart] = useState(
     Object.fromEntries(Products.map((product) => [product.name, 0]))
