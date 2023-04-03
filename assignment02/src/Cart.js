@@ -281,7 +281,7 @@ export function Cart({ isActive, changePage }) {
               <a
                 href=""
                 onclick={() => {
-                  changePage();
+                  changePage("Browse");
                 }}
                 className="btn btn-secondary"
               >

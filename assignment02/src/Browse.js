@@ -28,7 +28,7 @@ export function Browse({ isActive, changePage }) {
     }));
   }
   function doneShopping() {
-    changePage();
+    changePage("Cart");
   }
 
   return !isActive ? (
