@@ -77,7 +77,7 @@ let validate = function () {
   return val;
 };
 
-export function Cart() {
+export function Cart({ isActive, changePage }) {
   function isNumeric(n) {
     return !isNaN(parseFloat(n)) && isFinite(n);
   }
@@ -103,7 +103,9 @@ export function Cart() {
     }
   }
 
-  return (
+  return !isActive ? (
+    <></>
+  ) : (
     <div>
       <link
         href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/css/bootstrap.min.css"
@@ -133,7 +135,11 @@ export function Cart() {
                 <label htmlFor="inputName" className="form-label">
                   Full Name
                 </label>
-                <input type="text" className="form-control" id="inputName"></input>
+                <input
+                  type="text"
+                  className="form-control"
+                  id="inputName"
+                ></input>
                 <div className="valid-feedback">Looks good!</div>
                 <div className="invalid-feedback">Must be like, "John Doe"</div>
               </div>
@@ -148,7 +154,9 @@ export function Cart() {
                   id="inputEmail4"
                 ></input>
                 <div className="valid-feedback">Looks good!</div>
-                <div className="invalid-feedback">Must be like, "abc@xyz.efg"</div>
+                <div className="invalid-feedback">
+                  Must be like, "abc@xyz.efg"
+                </div>
               </div>
 
               <div className="col-12">
@@ -203,7 +211,11 @@ export function Cart() {
                 <label htmlFor="inputCity" className="form-label">
                   City
                 </label>
-                <input type="text" className="form-control" id="inputCity"></input>
+                <input
+                  type="text"
+                  className="form-control"
+                  id="inputCity"
+                ></input>
               </div>
               <div className="col-md-4">
                 <label htmlFor="inputState" className="form-label">
@@ -217,7 +229,11 @@ export function Cart() {
                 <label htmlFor="inputZip" className="form-label">
                   Zip
                 </label>
-                <input type="text" className="form-control" id="inputZip"></input>
+                <input
+                  type="text"
+                  className="form-control"
+                  id="inputZip"
+                ></input>
               </div>
               <div className="col-12">
                 <div className="form-check">
@@ -232,23 +248,24 @@ export function Cart() {
                 </div>
               </div>
               <div className="col-12">
-                <button type="submit" className="btn btn-success" onClick={(event) => {
-										console.log("!");
-										if (!validate()) {
-											const alertPlaceholder = document.getElementById(
-												"liveAlertPlaceholder"
-											);
-											alertPlaceholder.innerHTML = '';
-											alert('Something went wrong!')
-											event.preventDefault();
-											event.stopPropagation();
-										}
-										event.preventDefault();
-										event.stopPropagation();
-
-									}}
-								>
-									
+                <button
+                  type="submit"
+                  className="btn btn-success"
+                  onClick={(event) => {
+                    console.log("!");
+                    if (!validate()) {
+                      const alertPlaceholder = document.getElementById(
+                        "liveAlertPlaceholder"
+                      );
+                      alertPlaceholder.innerHTML = "";
+                      alert("Something went wrong!");
+                      event.preventDefault();
+                      event.stopPropagation();
+                    }
+                    event.preventDefault();
+                    event.stopPropagation();
+                  }}
+                >
                   {" "}
                   <i className="bi-bag-check"></i> Order
                 </button>
@@ -261,7 +278,13 @@ export function Cart() {
                 <p className="card-text">Here is a summary of your order.</p>
               </div>
               <ul className="list-group list-group-flush"></ul>
-              <a href="" onclick="location.reload()" className="btn btn-secondary">
+              <a
+                href=""
+                onclick={() => {
+                  changePage();
+                }}
+                className="btn btn-secondary"
+              >
                 {" "}
                 <i className="bi-arrow-left-circle"></i>
                 Return

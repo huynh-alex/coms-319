@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { Products } from "./Products";
 
-export function Browse() {
+export function Browse({ isActive, changePage }) {
   const [products, setProducts] = useState(Products);
   const [cart, setCart] = useState(
     Object.fromEntries(Products.map((product) => [product.name, 0]))
@@ -27,9 +27,13 @@ export function Browse() {
       [productName]: cart[productName] + 1,
     }));
   }
-  function doneShopping() {}
+  function doneShopping() {
+    changePage();
+  }
 
-  return (
+  return !isActive ? (
+    <></>
+  ) : (
     <div className="bg-white">
       <div className="flex justify-between p-4">
         <div></div>
