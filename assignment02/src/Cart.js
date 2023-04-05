@@ -78,11 +78,7 @@ let validate = function () {
   return val;
 };
 
-export function Cart({ isActive, changePage, cart }) {
-  Object.keys(cart).forEach(function (key) {
-    console.log(key, cart[key]);
-  });
-
+export function Cart({ isActive, changePage, cart, productPrices }) {
   function isNumeric(n) {
     return !isNaN(parseFloat(n)) && isFinite(n);
   }
@@ -130,28 +126,32 @@ export function Cart({ isActive, changePage, cart }) {
 
       <div className="container">
         <div className="row">
-          <div className="col-1">
-            <div className="border-black border-2">
+          <div className="col-3">
+            <div className="border-black border-2 p-4">
               <h1>Cart</h1>
-              <div className="text-center">
+              <div className="text-left">
                 {Object.keys(cart).map((key) =>
                   cart[key] > 0 ? (
                     <div key={key}>
-                      {key}: {cart[key]}
+                      {key}: {cart[key]} x ${productPrices[key].toFixed(2)}
                     </div>
                   ) : null
                 )}
               </div>
               <br></br>
-              Total: 
-              {Object.keys(cart).map((key) =>
-                  cart[key] > 0 ? (
-                      Products[cart[key]]
-                  ) : null
-                )}
+              <div>
+                Total: $
+                {Object.keys(cart)
+                  .map((key) => (cart[key] > 0 ? productPrices[key] : 0))
+                  .reduce(
+                    (total, price, index) =>
+                      total + price * cart[Object.keys(cart)[index]],
+                    0
+                  )
+                  .toFixed(2)}
+              </div>
             </div>
           </div>
-          <div className="col-1"></div>
 
           <div className="col-8">
             <div id="liveAlertPlaceholder"></div>

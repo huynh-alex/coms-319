@@ -6,8 +6,10 @@ import { Products } from "./Products";
 export function App() {
   const [page, changePage] = useState("Browse");
   const [cart, setCart] = useState(
-    Object.fromEntries(Products.map((product) => [product.name, 0, ]))
+    Object.fromEntries(Products.map((product) => [product.name, 0]))
   );
+
+  const productPrices = Object.fromEntries(Products.map((product) => [product.name, product.price]));
 
   function removeFromCart(productName) {
     setCart((prevState) => ({
@@ -31,11 +33,13 @@ export function App() {
         cart={cart}
         removeFromCart={removeFromCart}
         addToCart={addToCart}
+        productPrices={productPrices}
       />
       <Cart
         isActive={page === "Cart"}
         changePage={changePage}
         cart={cart}
+        productPrices={productPrices}
       />
     </div>
   );
