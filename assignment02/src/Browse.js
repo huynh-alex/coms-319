@@ -1,12 +1,8 @@
 import React, { useState } from "react";
 import { Products } from "./Products";
 
-export function Browse({ isActive, changePage }) {
+export function Browse({ isActive, changePage, cart, removeFromCart, addToCart }) {
   const [products, setProducts] = useState(Products);
-  const [cart, setCart] = useState(
-    Object.fromEntries(Products.map((product) => [product.name, 0]))
-  );
-
   function handleSearchChange(event) {
     if (event) {
       let filtered = Products.filter((product) =>
@@ -14,18 +10,6 @@ export function Browse({ isActive, changePage }) {
       );
       setProducts(filtered);
     }
-  }
-  function removeFromCart(productName) {
-    setCart((prevState) => ({
-      ...prevState,
-      [productName]: Math.max(0, cart[productName] - 1),
-    }));
-  }
-  function addToCart(productName) {
-    setCart((prevState) => ({
-      ...prevState,
-      [productName]: cart[productName] + 1,
-    }));
   }
   function doneShopping() {
     changePage("Cart");

@@ -1,4 +1,5 @@
 // import React, { useState } from "react";
+import { Products } from "./Products";
 
 let validate = function () {
   var order = {
@@ -15,7 +16,7 @@ let validate = function () {
   // const inputCard = document.querySelector("#inputCard");
   // const alertTrigger = document.getElementById("#inputCard");
   const summaryCard = document.querySelector(".card");
-  const summaryList = document.querySelector(".card > ul");
+  // const summaryList = document.querySelector(".card > ul");
 
   if (
     !email.value.match(
@@ -77,7 +78,11 @@ let validate = function () {
   return val;
 };
 
-export function Cart({ isActive, changePage }) {
+export function Cart({ isActive, changePage, cart }) {
+  Object.keys(cart).forEach(function (key) {
+    console.log(key, cart[key]);
+  });
+
   function isNumeric(n) {
     return !isNaN(parseFloat(n)) && isFinite(n);
   }
@@ -125,7 +130,28 @@ export function Cart({ isActive, changePage }) {
 
       <div className="container">
         <div className="row">
-          <div className="col-2"></div>
+          <div className="col-1">
+            <div className="border-black border-2">
+              <h1>Cart</h1>
+              <div className="text-center">
+                {Object.keys(cart).map((key) =>
+                  cart[key] > 0 ? (
+                    <div key={key}>
+                      {key}: {cart[key]}
+                    </div>
+                  ) : null
+                )}
+              </div>
+              <br></br>
+              Total: 
+              {Object.keys(cart).map((key) =>
+                  cart[key] > 0 ? (
+                      Products[cart[key]]
+                  ) : null
+                )}
+            </div>
+          </div>
+          <div className="col-1"></div>
 
           <div className="col-8">
             <div id="liveAlertPlaceholder"></div>
@@ -236,18 +262,6 @@ export function Cart({ isActive, changePage }) {
                 ></input>
               </div>
               <div className="col-12">
-                <div className="form-check">
-                  <input
-                    className="form-check-input"
-                    type="checkbox"
-                    id="gridCheck"
-                  ></input>
-                  <label className="form-check-label" htmlFor="gridCheck">
-                    Check me out
-                  </label>
-                </div>
-              </div>
-              <div className="col-12">
                 <button
                   type="submit"
                   className="btn btn-success"
@@ -278,9 +292,9 @@ export function Cart({ isActive, changePage }) {
                 <p className="card-text">Here is a summary of your order.</p>
               </div>
               <ul className="list-group list-group-flush"></ul>
-              <a
+              <button
                 href=""
-                onclick={() => {
+                onClick={() => {
                   changePage("Browse");
                 }}
                 className="btn btn-secondary"
@@ -288,7 +302,7 @@ export function Cart({ isActive, changePage }) {
                 {" "}
                 <i className="bi-arrow-left-circle"></i>
                 Return
-              </a>
+              </button>
             </div>
           </div>
 
