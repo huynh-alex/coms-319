@@ -300,6 +300,18 @@ export function Cart({ isActive, changePage, cart, productPrices }) {
               <div className="card-body">
                 <h5 className="card-title">Order summary</h5>
                 <p className="card-text">Here is a summary of your order.</p>
+                <p className ="last-order">slslsls</p>
+                <p className ="card-order">                
+                
+
+                {Object.keys(cart)
+                  .map((key) => (cart[key] > 0 ? productPrices[key] : 0))
+                  .reduce(
+                    (total, price, index) =>
+                      total + price * cart[Object.keys(cart)[index]],
+                    0
+                  )
+                  .toFixed(2)}</p>
               </div>
               <ul className="list-group list-group-flush"></ul>
               <button
