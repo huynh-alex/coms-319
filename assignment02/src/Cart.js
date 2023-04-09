@@ -103,7 +103,9 @@ export function Cart({ isActive, changePage, cart, productPrices }) {
       inputCard.value = newVal;
     }
   }
-
+  function backShopping() {
+    changePage("Browse");
+  }
   return !isActive ? (
     <></>
   ) : (
@@ -127,6 +129,12 @@ export function Cart({ isActive, changePage, cart, productPrices }) {
       <div className="container">
         <div className="row">
           <div className="col-3">
+          <button
+            onClick={() => backShopping()}
+            class="bg-green-200 hover:bg-green-300 py-2 px-2 border-green-700 rounded"
+          >
+            back
+          </button>
             <div className="border-black border-2 p-4">
               <h1>Cart</h1>
               <div className="text-left">
@@ -150,7 +158,9 @@ export function Cart({ isActive, changePage, cart, productPrices }) {
                   )
                   .toFixed(2)}
               </div>
+              
             </div>
+            
           </div>
 
           <div className="col-8">
