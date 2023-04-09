@@ -26,7 +26,7 @@ export function App() {
 
 
   return (
-    <div>
+    <div style={{backgroundColor: 'darkslategrey'}}>
       <Browse
         isActive={page === "Browse"}
         changePage={changePage}

@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { Products } from "./Products";
 
 export function Browse({
+  
   isActive,
   changePage,
   cart,
@@ -25,6 +26,7 @@ export function Browse({
   return !isActive ? (
     <></>
   ) : (
+    
       <div className="grid grid-cols-12">
         <div className="col-span-1 p-4">
           <input
@@ -50,9 +52,9 @@ export function Browse({
                 </div>
                 <div className="mt-4 flex justify-between">
                   <div>
-                    <h3 className="text-sm text-gray-700">{product.name}</h3>
+                    <h3 className="text-sm text-white">{product.name}</h3>
                   </div>
-                  <p className="text-sm font-medium text-gray-900">
+                  <p className="text-sm font-medium text-white">
                     ${product.price.toFixed(2)}
                   </p>
                 </div>
@@ -64,7 +66,7 @@ export function Browse({
                   >
                     -
                   </button>
-                  <span>&emsp; {cart[product.name]} &emsp;</span>
+                  <span style = {{color: 'white'}}>&emsp; {cart[product.name]} &emsp;</span>
                   <button
                     onClick={() => addToCart(product.name)}
                     className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 border border-blue-700 rounded"
@@ -79,7 +81,7 @@ export function Browse({
 
         <div className="col-span-2 p-4 ">
           <div>
-            <div className="border-black border-2 p-2">
+            <div className="bg-white border-white border-2 p-4 rounded">
               <h1>Cart</h1>
               <div className="text-left">
                 {Object.keys(cart).map((key) =>
