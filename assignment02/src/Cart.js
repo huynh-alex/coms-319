@@ -12,6 +12,7 @@ function validate(order) {
   let email = document.getElementById("inputEmail4");
   let name = document.getElementById("inputName");
   let card = document.getElementById("inputCard");
+  let zip = document.getElementById("inputZip");
   const alertPlaceholder = document.getElementById("liveAlertPlaceholder");
   const form = document.getElementById("checkout-form");
   const backButton = document.getElementById("back-button");
@@ -30,6 +31,17 @@ function validate(order) {
   } else {
     email.setAttribute("class", "form-control is-valid");
     order.email = email.value;
+  }
+
+  if (
+    !zip.value.match(
+      /^[0-9]{5}(?:-[0-9]{4})?$/
+    )
+  ) {
+    zip.setAttribute("class", "form-control is-invalid");
+    val = false;
+  } else {
+    zip.setAttribute("class", "form-control is-valid");
   }
 
   if (name.value.length === 0) {
@@ -139,7 +151,7 @@ export function Cart({ isActive, changePage, cart, productPrices, resetCart }) {
       ></link>
 
       <div className="container">
-        <div className="row">
+        <div className="row ">
           <div className="col-3">
             <button
               onClick={() => backShopping()}
