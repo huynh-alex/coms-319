@@ -13,6 +13,7 @@ function validate(order) {
   let name = document.getElementById("inputName");
   let card = document.getElementById("inputCard");
   let zip = document.getElementById("inputZip");
+  let state = document.getElementById("inputState");
   const alertPlaceholder = document.getElementById("liveAlertPlaceholder");
   const form = document.getElementById("checkout-form");
   const backButton = document.getElementById("back-button");
@@ -42,6 +43,15 @@ function validate(order) {
     val = false;
   } else {
     zip.setAttribute("class", "form-control is-valid");
+  }
+
+  if (
+    state.value === "Choose"
+  ) {
+    state.setAttribute("class", "form-control is-invalid");
+    val = false;
+  } else {
+    state.setAttribute("class", "form-control is-valid");
   }
 
   if (name.value.length === 0) {
@@ -307,7 +317,10 @@ export function Cart({ isActive, changePage, cart, productPrices, resetCart }) {
                   State
                 </label>
                 <select id="inputState" className="form-select">
-                  <option>Choose...</option>
+                <option>Choose</option>
+                <option>Iowa</option>
+                <option>California</option>
+                <option>Florida</option>
                 </select>
               </div>
               <div className="col-md-2">
