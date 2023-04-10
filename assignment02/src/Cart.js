@@ -56,6 +56,13 @@ function validate(order) {
     state.setAttribute("class", "form-control is-valid");
   }
 
+  if (address.value.length === 0) {
+    address.setAttribute("class", "form-control is-invalid");
+    val = false;
+  } else {
+    address.setAttribute("class", "form-control is-valid");
+    order.address = address.value;
+  }
   if (name.value.length === 0) {
     name.setAttribute("class", "form-control is-invalid");
     val = false;
@@ -84,7 +91,6 @@ function validate(order) {
   };
 
   if (val) {
-    order.address = address.value;
     form.classList.add("collapse");
     backButton.classList.add("collapse");
 
