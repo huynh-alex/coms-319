@@ -328,7 +328,7 @@ export function Cart({ isActive, changePage, cart, productPrices }) {
                 <h5 className="card-title">Order summary</h5>
                 <p className="card-text">Here is a summary of your order.</p>
                 <p className ="last-order">
-                  Name: {userInfo.render}
+                  Name: 
                 </p>
                 <p className ="card-order">                
 
