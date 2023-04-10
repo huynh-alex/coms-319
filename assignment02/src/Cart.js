@@ -1,14 +1,13 @@
- import React from "react";
+import React from "react";
 //import { Products } from "./Products";
 
+var order = {
+  name: "",
+  email: "",
+  card: "",
+};
 
-
-let validate = function () {
-  var order = {
-    name: "",
-    email: "",
-    card: "",
-  };
+function validate(order) {
   let val = true;
   let email = document.getElementById("inputEmail4");
   let name = document.getElementById("inputName");
@@ -18,7 +17,7 @@ let validate = function () {
   // const inputCard = document.querySelector("#inputCard");
   // const alertTrigger = document.getElementById("#inputCard");
   const summaryCard = document.querySelector(".card");
-  // const summaryList = document.querySelector(".card > ul");
+  const summaryList = document.querySelector(".card > ul");
 
   if (
     !email.value.match(
@@ -62,14 +61,17 @@ let validate = function () {
   if (val) {
     form.classList.add("collapse");
 
-    // for (const [key, value] of Object.entries(order)) {
-    //   summaryList.innerHTML +=
-    //     '<li className="list-group-item"> <b>' +
-    //     `${key}` +
-    //     ": </b>" +
-    //     `${value}` +
-    //     "</li>";
-    // }
+    for (var [key, value] of Object.entries(order)) {
+      if (key === "card") {
+        value = "****-****-****" + value.slice(-5);
+      }
+      summaryList.innerHTML +=
+        '<li className="list-group-item"> <b>' +
+        `${key}` +
+        ": </b>" +
+        `${value}` +
+        "</li>";
+    }
     summaryCard.classList.remove("collapse");
     alertPlaceholder.innerHTML = "";
     alert(
@@ -78,13 +80,15 @@ let validate = function () {
     );
   }
   return val;
-};
+}
 
+export function Cart({ isActive, changePage, cart, productPrices }) {
+  var order = {
+    name: "",
+    email: "",
+    card: "",
+  };
 
-export function Cart({ isActive, changePage, cart, productPrices,  resetCart }) {
-
-
-  
   function isNumeric(n) {
     return !isNaN(parseFloat(n)) && isFinite(n);
   }
@@ -135,12 +139,12 @@ export function Cart({ isActive, changePage, cart, productPrices,  resetCart }) 
       <div className="container">
         <div className="row">
           <div className="col-3">
-          <button
-            onClick={() => backShopping()}
-            class="bg-green-200 hover:bg-green-300 py-2 px-2 border-green-700 rounded"
-          >
-            back
-          </button>
+            <button
+              onClick={() => backShopping()}
+              class="bg-green-200 hover:bg-green-300 py-2 px-2 border-green-700 rounded"
+            >
+              back
+            </button>
             <div className="border-white border-2 p-4 bg-white rounded">
               <h1>Cart</h1>
               <div className="text-left">
@@ -183,14 +187,14 @@ export function Cart({ isActive, changePage, cart, productPrices,  resetCart }) 
                   .map((key) => (cart[key] > 0 ? productPrices[key] : 0))
                   .reduce(
                     (total, price, index) =>
-                      total + price * cart[Object.keys(cart)[index]] + 0.06 * price * cart[Object.keys(cart)[index]],
+                      total +
+                      price * cart[Object.keys(cart)[index]] +
+                      0.06 * price * cart[Object.keys(cart)[index]],
                     0
                   )
                   .toFixed(2)}
               </div>
-              
             </div>
-            
           </div>
 
           <div className="col-8">
@@ -306,8 +310,7 @@ export function Cart({ isActive, changePage, cart, productPrices,  resetCart }) 
                   type="submit"
                   className="btn btn-success"
                   onClick={(event) => {
-                    console.log("!");
-                    if (!validate()) {
+                    if (!validate(order)) {
                       const alertPlaceholder = document.getElementById(
                         "liveAlertPlaceholder"
                       );
@@ -328,21 +331,7 @@ export function Cart({ isActive, changePage, cart, productPrices,  resetCart }) 
 
             <div className="card collapse" style={{ width: "18rem" }}>
               <div className="card-body">
-                <h5 className="card-title">Order summary</h5>
-                <p className="card-text">Here is a summary of your order.</p>
-                <p className ="last-order">
-                  Name: 
-                </p>
-                <p className ="card-order">                
-
-                {Object.keys(cart)
-                  .map((key) => (cart[key] > 0 ? productPrices[key] : 0))
-                  .reduce(
-                    (total, price, index) =>
-                      total + price * cart[Object.keys(cart)[index]],
-                    0
-                  )
-                  .toFixed(2)}</p>
+                <h5 className="card-title">Order Confirmation</h5>
               </div>
               <ul className="list-group list-group-flush"></ul>
               <button
