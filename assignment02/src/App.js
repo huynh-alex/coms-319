@@ -24,6 +24,12 @@ export function App() {
       [productName]: cart[productName] + 1,
     }));
   }
+  function resetCart(productName){
+    setCart((prevState) => ({
+      ...prevState,
+      [productName]: 0,
+    }));
+  }
 
 
   return (
@@ -39,6 +45,8 @@ export function App() {
       <Cart
         isActive={page === "Cart"}
         changePage={changePage}
+        addToCart={addToCart}
+        resetCart={resetCart}
         cart={cart}
         productPrices={productPrices}
       />

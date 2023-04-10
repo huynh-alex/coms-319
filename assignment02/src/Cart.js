@@ -81,7 +81,10 @@ let validate = function () {
 };
 
 
-export function Cart({ isActive, changePage, cart, productPrices }) {
+export function Cart({ isActive, changePage, cart, productPrices,  resetCart }) {
+
+
+  
   function isNumeric(n) {
     return !isNaN(parseFloat(n)) && isFinite(n);
   }
@@ -345,6 +348,14 @@ export function Cart({ isActive, changePage, cart, productPrices }) {
               <button
                 href=""
                 onClick={() => {
+                  resetCart("Smiley Face");
+                  resetCart("Fire");
+                  resetCart("Thumbs Up");
+                  resetCart("Deer");
+                  resetCart("Dragon");
+                  resetCart("Herb");
+                  resetCart("Crescent Moon");
+                  resetCart("Water Wave");
                   changePage("Browse");
                 }}
                 className="btn btn-secondary"
