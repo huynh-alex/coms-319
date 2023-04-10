@@ -213,7 +213,7 @@ export function Cart({ isActive, changePage, cart, productPrices, resetCart }) {
           </div>
 
           <div className="col-8">
-            <div id="liveAlertPlaceholder"></div>
+            <div className="text-white" id="liveAlertPlaceholder"></div>
 
             <form className="row g-3 text-white" id="checkout-form">
               <div className="col-md-6">

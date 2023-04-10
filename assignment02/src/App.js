@@ -1,26 +1,26 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Browse } from "./Browse";
 import { Cart } from "./Cart";
-import { Products } from "./Products";
+// import { Products } from "./Products";
 
 export function App() {
   const [page, changePage] = useState("Browse");
-  const [cart, setCart] = useState(
-    Object.fromEntries(Products.map((product) => [product.name, 0]))
-  );
+  const [cart, setCart] = useState([]);
+  const [productPrices, setProductPrices] = useState([]);
 
-  const productPrices = Object.fromEntries(
-    Products.map((product) => [product.name, product.price])
-  );
-
-  // useEffect(() => {
-  //   var cartEmpty = Object.values(cart).every((item) => item === true);
-  //   if (cartEmpty) {
-  //     checkoutButton.classList.add("collapse");
-  //   } else {
-  //     checkoutButton.classList.remove("collapse");
-  //   }
-  // }, [cart]);
+  useEffect(() => {
+    fetch("./products.json")
+      .then((response) => response.json())
+      .then((json) => {
+        json = json.products;
+        setCart(Object.fromEntries(json.map((product) => [product.name, 0])));
+        setProductPrices(
+          Object.fromEntries(
+            json.map((product) => [product.name, product.price])
+          )
+        );
+      });
+  }, []);
 
   function removeFromCart(productName) {
     setCart((prevState) => ({
