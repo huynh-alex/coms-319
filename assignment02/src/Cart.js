@@ -4,6 +4,7 @@ import React from "react";
 var order = {
   name: "",
   email: "",
+  address: "",
   card: "",
 };
 
@@ -14,6 +15,7 @@ function validate(order) {
   let card = document.getElementById("inputCard");
   let zip = document.getElementById("inputZip");
   let state = document.getElementById("inputState");
+  let address = document.getElementById("inputAddress");
   const alertPlaceholder = document.getElementById("liveAlertPlaceholder");
   const form = document.getElementById("checkout-form");
   const backButton = document.getElementById("back-button");
@@ -82,6 +84,7 @@ function validate(order) {
   };
 
   if (val) {
+    order.address = address.value;
     form.classList.add("collapse");
     backButton.classList.add("collapse");
 
@@ -107,11 +110,11 @@ function validate(order) {
 }
 
 export function Cart({ isActive, changePage, cart, productPrices, resetCart }) {
-  var order = {
-    name: "",
-    email: "",
-    card: "",
-  };
+  // var order = {
+  //   name: "",
+  //   email: "",
+  //   card: "",
+  // };
 
   function isNumeric(n) {
     return !isNaN(parseFloat(n)) && isFinite(n);
@@ -357,7 +360,7 @@ export function Cart({ isActive, changePage, cart, productPrices, resetCart }) {
               </div>
             </form>
 
-            <div className="card collapse" style={{ width: "18rem" }}>
+            <div className="card collapse" style={{ width: "25rem" }}>
               <div className="card-body">
                 <h5 className="card-title">Order Confirmation</h5>
               </div>
