@@ -82,7 +82,7 @@ function validate(order) {
   return val;
 }
 
-export function Cart({ isActive, changePage, cart, productPrices }) {
+export function Cart({ isActive, changePage, cart, productPrices, resetCart }) {
   var order = {
     name: "",
     email: "",
