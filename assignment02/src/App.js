@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from "react";
 import { Browse } from "./Browse";
 import { Cart } from "./Cart";
-// import { Products } from "./Products";
 
 export function App() {
   const [page, changePage] = useState("Browse");
+  const [products, setProducts] = useState([]);
   const [cart, setCart] = useState([]);
   const [productPrices, setProductPrices] = useState([]);
 
@@ -13,6 +13,7 @@ export function App() {
       .then((response) => response.json())
       .then((json) => {
         json = json.products;
+        setProducts(json);
         setCart(Object.fromEntries(json.map((product) => [product.name, 0])));
         setProductPrices(
           Object.fromEntries(
@@ -50,6 +51,7 @@ export function App() {
         removeFromCart={removeFromCart}
         addToCart={addToCart}
         productPrices={productPrices}
+        products={products}
       />
       <Cart
         isActive={page === "Cart"}
