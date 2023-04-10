@@ -27,6 +27,7 @@ export function Browse({
     <></>
   ) : (
     
+    
       <div className="grid grid-cols-12">
         <div className="col-span-1 p-4">
           <input
@@ -91,6 +92,30 @@ export function Browse({
                     </div>
                   ) : null
                 )}
+              </div>
+              <br></br>
+              <div>
+                Total without Tax: $
+                {Object.keys(cart)
+                  .map((key) => (cart[key] > 0 ? productPrices[key] : 0))
+                  .reduce(
+                    (total, price, index) =>
+                      total + price * cart[Object.keys(cart)[index]],
+                    0
+                  )
+                  .toFixed(2)}
+              </div>
+              <br></br>
+              <div>
+                Tax: $
+                {Object.keys(cart)
+                  .map((key) => (cart[key] > 0 ? productPrices[key] : 0))
+                  .reduce(
+                    (total, price, index) =>
+                      total + 0.06 * price * cart[Object.keys(cart)[index]],
+                    0
+                  )
+                  .toFixed(2)}
               </div>
               <br></br>
               <div>

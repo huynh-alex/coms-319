@@ -8,6 +8,7 @@ export function App() {
   const [cart, setCart] = useState(
     Object.fromEntries(Products.map((product) => [product.name, 0]))
   );
+  
 
   const productPrices = Object.fromEntries(Products.map((product) => [product.name, product.price]));
 

@@ -1,5 +1,7 @@
-// import React, { useState } from "react";
+ import React from "react";
 //import { Products } from "./Products";
+
+
 
 let validate = function () {
   var order = {
@@ -78,6 +80,7 @@ let validate = function () {
   return val;
 };
 
+
 export function Cart({ isActive, changePage, cart, productPrices }) {
   function isNumeric(n) {
     return !isNaN(parseFloat(n)) && isFinite(n);
@@ -135,7 +138,7 @@ export function Cart({ isActive, changePage, cart, productPrices }) {
           >
             back
           </button>
-            <div className="border-black border-2 p-4">
+            <div className="border-white border-2 p-4 bg-white rounded">
               <h1>Cart</h1>
               <div className="text-left">
                 {Object.keys(cart).map((key) =>
@@ -148,12 +151,36 @@ export function Cart({ isActive, changePage, cart, productPrices }) {
               </div>
               <br></br>
               <div>
-                Total: $
+                Total without Tax: $
                 {Object.keys(cart)
                   .map((key) => (cart[key] > 0 ? productPrices[key] : 0))
                   .reduce(
                     (total, price, index) =>
                       total + price * cart[Object.keys(cart)[index]],
+                    0
+                  )
+                  .toFixed(2)}
+              </div>
+              <br></br>
+              <div>
+                Tax: $
+                {Object.keys(cart)
+                  .map((key) => (cart[key] > 0 ? productPrices[key] : 0))
+                  .reduce(
+                    (total, price, index) =>
+                      total + 0.06 * price * cart[Object.keys(cart)[index]],
+                    0
+                  )
+                  .toFixed(2)}
+              </div>
+              <br></br>
+              <div>
+                Total: $
+                {Object.keys(cart)
+                  .map((key) => (cart[key] > 0 ? productPrices[key] : 0))
+                  .reduce(
+                    (total, price, index) =>
+                      total + price * cart[Object.keys(cart)[index]] + 0.06 * price * cart[Object.keys(cart)[index]],
                     0
                   )
                   .toFixed(2)}
@@ -300,9 +327,10 @@ export function Cart({ isActive, changePage, cart, productPrices }) {
               <div className="card-body">
                 <h5 className="card-title">Order summary</h5>
                 <p className="card-text">Here is a summary of your order.</p>
-                <p className ="last-order">slslsls</p>
+                <p className ="last-order">
+                  Name: {userInfo.render}
+                </p>
                 <p className ="card-order">                
-                
 
                 {Object.keys(cart)
                   .map((key) => (cart[key] > 0 ? productPrices[key] : 0))
