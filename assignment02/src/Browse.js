@@ -34,6 +34,7 @@ export function Browse({
     }
   }
   function doneShopping() {
+    setFiltered(products);
     changePage("Cart");
   }
 
