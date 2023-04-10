@@ -8,9 +8,19 @@ export function App() {
   const [cart, setCart] = useState(
     Object.fromEntries(Products.map((product) => [product.name, 0]))
   );
-  
 
-  const productPrices = Object.fromEntries(Products.map((product) => [product.name, product.price]));
+  const productPrices = Object.fromEntries(
+    Products.map((product) => [product.name, product.price])
+  );
+
+  // useEffect(() => {
+  //   var cartEmpty = Object.values(cart).every((item) => item === true);
+  //   if (cartEmpty) {
+  //     checkoutButton.classList.add("collapse");
+  //   } else {
+  //     checkoutButton.classList.remove("collapse");
+  //   }
+  // }, [cart]);
 
   function removeFromCart(productName) {
     setCart((prevState) => ({
@@ -24,16 +34,15 @@ export function App() {
       [productName]: cart[productName] + 1,
     }));
   }
-  function resetCart(productName){
+  function resetCart(productName) {
     setCart((prevState) => ({
       ...prevState,
       [productName]: 0,
     }));
   }
 
-
   return (
-    <div style={{backgroundColor: 'darkslategrey'}}>
+    <div className="h-screen" style={{ backgroundColor: "darkslategrey" }}>
       <Browse
         isActive={page === "Browse"}
         changePage={changePage}

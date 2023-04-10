@@ -14,6 +14,7 @@ function validate(order) {
   let card = document.getElementById("inputCard");
   const alertPlaceholder = document.getElementById("liveAlertPlaceholder");
   const form = document.getElementById("checkout-form");
+  const backButton = document.getElementById("back-button");
   // const inputCard = document.querySelector("#inputCard");
   // const alertTrigger = document.getElementById("#inputCard");
   const summaryCard = document.querySelector(".card");
@@ -60,6 +61,7 @@ function validate(order) {
 
   if (val) {
     form.classList.add("collapse");
+    backButton.classList.add("collapse");
 
     for (var [key, value] of Object.entries(order)) {
       if (key === "card") {
@@ -141,7 +143,8 @@ export function Cart({ isActive, changePage, cart, productPrices, resetCart }) {
           <div className="col-3">
             <button
               onClick={() => backShopping()}
-              class="bg-green-200 hover:bg-green-300 py-2 px-2 border-green-700 rounded"
+              id="back-button"
+              className="my-4 bg-green-200 hover:bg-green-300 py-2 px-2 border-green-700 rounded"
             >
               back
             </button>
@@ -200,7 +203,7 @@ export function Cart({ isActive, changePage, cart, productPrices, resetCart }) {
           <div className="col-8">
             <div id="liveAlertPlaceholder"></div>
 
-            <form className="row g-3" id="checkout-form">
+            <form className="row g-3 text-white" id="checkout-form">
               <div className="col-md-6">
                 <label htmlFor="inputName" className="form-label">
                   Full Name
@@ -308,7 +311,7 @@ export function Cart({ isActive, changePage, cart, productPrices, resetCart }) {
               <div className="col-12">
                 <button
                   type="submit"
-                  className="btn btn-success"
+                  className="btn btn-success my-4"
                   onClick={(event) => {
                     if (!validate(order)) {
                       const alertPlaceholder = document.getElementById(
