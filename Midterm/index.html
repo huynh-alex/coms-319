@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>FunTube</title>
+
+  <link href="./styles/bootstrap.min.css" rel="stylesheet">
+  <link href="./styles/navbar.css" rel="stylesheet">
+  
+</head>
+
+<body style="background-color:rgb(91, 91, 91);">
+  <nav class="navbar navbar-expand-lg navbar-dark bg-dark" aria-label="Navbar">
+    <div class="container-fluid">
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarsExample08"
+        aria-controls="navbarsExample08" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+
+      <div class="collapse navbar-collapse justify-content-md-center" id="navbarsExample08">
+        <ul class="navbar-nav">
+          <li class="nav-item">
+            <a class="nav-link" href="./index.html"><mark>Home</mark></a>
+          </li>
+          <li class="nav-item">
+            <a id="funnyNavLink" class="nav-link" href="./pages/funny.html">Funny</a>
+          </li>
+          <li class="nav-item">
+            <a id="foodNavLink" class="nav-link" href="./pages/food.html">Food</a>
+          </li>
+          <li class="nav-item">
+            <a id="musicNavLink" onclick="f1()" class="nav-link" href="./pages/music.html">Music</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="./pages/aboutus.html">About Us</a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+  <header style="color: cornflowerblue; background-color: greenyellow; text-align: center; padding: 20px; font-family: sans-serif;">
+    <h1>FunTube</h1>
+  </header>
+  <div style="color:navajowhite; background-color: gray; text-align: center; padding: 20px; font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;">
+    <h4>FunTube is a website with some (YouTube) videos you can watch for fun. We have a couple categories of videos to choose from, so have fun.</h4>
+  </div>
+
+  <div style="padding:10px; color:white">
+    Small note: If you use this website outside of the GitHub <a href="https://huynh-alex.github.io/coms-319/Midterm/index.html">link</a>, some Youtube videos will not load.
+  </div>
+  <script type="module" src="./index.js"></script>
+
+</body>
+
+</html>
