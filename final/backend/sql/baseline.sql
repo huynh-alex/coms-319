@@ -1,5 +1,5 @@
 -- Uncomment this line if schema is not created yet
--- create schema spede;
+create schema spede;
 
 create table if not exists spede.benchmark (
     id int NOT NULL unique AUTO_INCREMENT,
@@ -7,6 +7,6 @@ create table if not exists spede.benchmark (
     test_date datetime,
     ram int,
     cpu_cores int,
-    os varchar(256)
+    os varchar(256),
     PRIMARY KEY (id)
 );
