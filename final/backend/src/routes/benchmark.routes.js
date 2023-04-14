@@ -7,3 +7,5 @@ const BenchmarkRoutes = (app) => {
     router.get('/', benchmarks.getAll);
     router.post('/', benchmarks.create);
 }
+
+export default BenchmarkRoutes;
