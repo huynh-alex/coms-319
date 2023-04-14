@@ -30,7 +30,7 @@ const update = (req, res) => {
 
   const updatedBenchmark = new Benchmark(req.body);
 
-  User.update(req.params.ua, updatedBenchmark, (err) => {
+  User.update(req.body.ua, updatedBenchmark, (err) => {
     if (err) {
       res.status(500).send({
         message: "Unexpected error from updating benchmark.",
