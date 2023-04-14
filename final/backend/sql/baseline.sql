@@ -1,4 +1,4 @@
--- Uncomment this line if schema is not created yet
+-- Comment this line out if schema has already been created
 create schema spede;
 
 create table if not exists spede.benchmarks (
