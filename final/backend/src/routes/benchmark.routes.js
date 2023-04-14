@@ -6,6 +6,7 @@ const router = Router();
 const BenchmarkRoutes = (app) => {
     router.get('/', benchmarks.getAll);
     router.post('/', benchmarks.create);
+    router.patch('/', benchmarks.update);
 
     app.use('/benchmarks', router);
 }

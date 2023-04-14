@@ -24,6 +24,25 @@ Benchmark.create = (newBenchmark, resultCallback) => {
   });
 };
 
+Benchmark.update = (ua, updatedBenchmark, resultCallback) => {
+  sql.query(
+    "UPDATE benchmarks SET ? WHERE ua = ?",
+    [updatedBenchmark, ua],
+    (err) => {
+      if (err) {
+        if (err.sqlMessage) {
+          console.log(`SQL Error: ${err.sqlMessage}`);
+        } else console.log(`Error: ${err.message}`);
+
+        resultCallback(err, null);
+        return;
+      }
+
+      resultCallback(undefined);
+    }
+  );
+};
+
 Benchmark.getAll = (resultCallback) => {
   sql.query("SELECT * FROM benchmarks", (err, res) => {
     if (err) {
