@@ -16,7 +16,6 @@ Benchmark.create = (newBenchmark, resultCallback) => {
       if (err.sqlMessage) {
         console.log(`SQL Error: ${err.sqlMessage}`);
       }
-
       resultCallback(err, null);
       return;
     }
@@ -30,14 +29,13 @@ Benchmark.update = (ua, updatedBenchmark, resultCallback) => {
     [updatedBenchmark, ua],
     (err) => {
       if (err) {
+        console.log(`Error: ${err.message}`);
         if (err.sqlMessage) {
           console.log(`SQL Error: ${err.sqlMessage}`);
-        } else console.log(`Error: ${err.message}`);
-
+        }
         resultCallback(err, null);
         return;
       }
-
       resultCallback(undefined);
     }
   );
@@ -47,16 +45,27 @@ Benchmark.getAll = (resultCallback) => {
   sql.query("SELECT * FROM benchmarks", (err, res) => {
     if (err) {
       console.log(`Error: ${err.message}`);
-
       if (err.sqlMessage) {
         console.log(`SQL Error: ${err.sqlMessage}`);
       }
-
       resultCallback(err, null);
       return;
     }
-
     resultCallback(undefined, res);
+  });
+};
+
+Benchmark.deleteBenchmark = (ua, resultCallback) => {
+  sql.query("DELETE FROM benchmarks WHERE ua = ?", [ua], (err) => {
+    if (err) {
+      console.log(`Error: ${err.message}`);
+      if (err.sqlMessage) {
+        console.log(`SQL Error: ${err.sqlMessage}`);
+      }
+      resultCallback(err, null);
+      return;
+    }
+    resultCallback(undefined);
   });
 };
 

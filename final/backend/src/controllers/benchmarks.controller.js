@@ -17,9 +17,8 @@ const create = (req, res) => {
           message: "Unexpected error from creating benchmark.",
         });
       }
-    } else {
-      res.sendStatus(201);
-    }
+    } 
+    res.sendStatus(201);
   });
 };
 
@@ -28,6 +27,7 @@ const update = (req, res) => {
     res.status(400).send({ message: "Empty request body" });
     return;
   }
+
   const updatedBenchmark = new Benchmark(req.body);
 
   User.update(req.params.ua, updatedBenchmark, (err) => {
@@ -35,9 +35,8 @@ const update = (req, res) => {
       res.status(500).send({
         message: "Unexpected error from updating benchmark.",
       });
-    } else {
-      res.sendStatus(201);
     }
+    res.sendStatus(201);
   });
 };
 
@@ -47,10 +46,21 @@ const getAll = (req, res) => {
       res.status(500).send({
         message: "Unexpected error from getting all benchmarks.",
       });
-    } else {
-      res.send(data);
-    }
+    } 
+    res.send(data);
   });
 };
 
-export default { create, getAll, update };
+const deleteBenchmark = (req, res) => {
+  Benchmark.deleteBenchmark(req.body.ua, (err, user) => {
+    if (err) {
+      res.status(500).send({
+        message: "Unexpected error from getting all benchmarks.",
+      });
+    }
+    res.send(user);
+  });
+};
+
+
+export default { create, getAll, update, deleteBenchmark };
