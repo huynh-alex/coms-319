@@ -26,7 +26,6 @@ export function Benchmark({
             >
                 Run Benchmark
               </button>
-                        
             <button id="results-button"
             onClick={() => {
               results();
