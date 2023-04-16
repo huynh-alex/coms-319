@@ -12,6 +12,7 @@ import { LastQuarter } from "./pages/Last-quarter.js";
 import { Social } from "./pages/Social-engagement.js";
 import { Sale } from "./pages/Year-end-sale.js";
 import { Testing } from "./pages/Testing.js";
+import { GlobalResults } from "./pages/GlobalResults";
 
 function App() {
 
@@ -49,6 +50,9 @@ function App() {
       break
     case "/Testing":
       Component = Testing
+      break
+    case "/GlobalResults":
+      Component = GlobalResults
       break
 
   }
