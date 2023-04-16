@@ -1,4 +1,5 @@
 import "./App.css";
+
 import { Benchmark } from "./pages/Benchmark";
 import { Orders } from "./pages/Orders.js";
 import { Sidebar } from "./Sidebar";
@@ -10,8 +11,10 @@ import { CurrentMonth } from "./pages/Current-month.js";
 import { LastQuarter } from "./pages/Last-quarter.js";
 import { Social } from "./pages/Social-engagement.js";
 import { Sale } from "./pages/Year-end-sale.js";
+import { Testing } from "./pages/Testing.js";
 
 function App() {
+
   let Component
   switch  (window.location.pathname) {
     case "/":
@@ -43,6 +46,9 @@ function App() {
       break
     case "/Sale":
       Component = Sale
+      break
+    case "/Testing":
+      Component = Testing
       break
 
   }
