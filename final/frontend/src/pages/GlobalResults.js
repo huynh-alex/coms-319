@@ -6,6 +6,13 @@ export function GlobalResults() {
               Results
 
             </div>
+            <div>
+            <a class="nav-link" href="/">
+            <button >
+                Back
+              </button>
+              </a>
+            </div>
           </main>
       </>
     );
