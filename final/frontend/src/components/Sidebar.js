@@ -1,4 +1,11 @@
 export function Sidebar({ changePage }) {
+  function setActiveNavLink(id) {
+    const navLinkElements = document.getElementsByClassName("nav-link");
+    for (const navLinkElement of navLinkElements)
+        navLinkElement.classList.remove("active");
+    const activeNavLink = document.getElementById(id);
+    activeNavLink.classList.add("active");
+  }
   return (
     <nav
       id="sidebarMenu"
@@ -8,27 +15,48 @@ export function Sidebar({ changePage }) {
         <ul class="nav flex-column">
           <li class="nav-item">
             <a
+              id="Benchmark"
               class="nav-link active"
               aria-current="page"
-              onClick={changePage("Benchmark")}
+              href="#"
+              onClick={() => {
+                changePage("Benchmark");
+                setActiveNavLink("Benchmark")
+              }}
             >
               <span data-feather="home" class="align-text-bottom"></span>
               Benchmark
             </a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" onClick={changePage("MyResults")}>
+            <a
+              id="MyResults"
+              class="nav-link"
+              href="#"
+              onClick={() => {
+                changePage("MyResults");
+                setActiveNavLink("MyResults")
+              }}
+            >
               <span data-feather="file" class="align-text-bottom"></span>
               My Results
             </a>
           </li>
           <li class="nav-item">
-          <a class="nav-link" onClick={changePage("GlobalResults")}>
+            <a
+              id="GlobalResults"
+              class="nav-link"
+              href="#"
+              onClick={() => {
+                changePage("GlobalResults");
+                setActiveNavLink("GlobalResults")
+              }}
+            >
               <span
                 data-feather="shopping-cart"
                 class="align-text-bottom"
               ></span>
-              All Results
+              Global Results
             </a>
           </li>
         </ul>
