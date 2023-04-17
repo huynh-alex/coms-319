@@ -1,4 +1,4 @@
-import "./App.css";
+//import "./App.css";
 import React, { useState, useEffect } from "react";
 import { Benchmark } from "./pages/Benchmark";
 import { Testing } from "./pages/Testing.js";

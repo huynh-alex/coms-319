@@ -14,11 +14,11 @@ export function Benchmark({
   return !isActive ? (
     <></>
   ) : (
-        <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
-          <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+          <div>
+            <div className="col-span-2 p-4">
             Main Page
           </div>
-          <div>
+          <div className="col-span-2 p-4">
             <button id="Testing-button"
             onClick={() => {
               testRun();
@@ -26,6 +26,9 @@ export function Benchmark({
             >
                 Run Benchmark
               </button>
+              
+          </div>
+          <div className="col-span-2 p-4 ">
             <button id="results-button"
             onClick={() => {
               results();
@@ -34,7 +37,7 @@ export function Benchmark({
               </button>
               
           </div>
-        </main>
+          </div>
     
   );
 }
