@@ -32,7 +32,34 @@ export function Benchmark({ isActive, changePage }) {
               </h2>
             <div id="collapseOne" class="accordion-collapse collapse show" aria-labelledby="headingOne" data-bs-parent="#accordionExample">
               <div class="accordion-body">
-                FAQs about Benchmarks
+                
+                <div class="accordion" id="sub-accordionExample">
+                  <div class="accordion-item">
+                    <h2 class="accordion-header" id="sub-headingOne">
+                      <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#sub-collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                        FAQ #1
+                      </button>
+                    </h2>
+                    <div id="sub-collapseOne" class="accordion-collapse collapse" aria-labelledby="sub-headingOne" data-bs-parent="#collapseOne">
+                      <div class="accordion-body">
+                        <strong>This is what a Benchmark is.</strong>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="accordion-item">
+                    <h2 class="accordion-header" id="sub-headingTwo">
+                      <button class="accordion-button collapsed" type="buttonn" data-bs-toggle="collapse" data-bs-target="#sub-collapseTwo" aria-expanded="false" aria-controls="sub-collapseTwo">
+                        FAQ #2
+                      </button>
+                    </h2>
+                    <div id="sub-collapseTwo" class="accordion-collapse collapse" aria-labelledby="sub-headingTwo" data-bs-parent="#collapseOne">
+                      <div class="accordion-body">
+                        <strong>This is how a Benchmark works.</strong>
+                      </div>
+                    </div>
+                  </div>
+
+                </div>
               </div>
             </div>
           </div>
