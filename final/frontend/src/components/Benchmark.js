@@ -58,12 +58,11 @@ export function Benchmark({ isActive, changePage }) {
                       </div>
                     </div>
                   </div>
-
                 </div>
               </div>
             </div>
           </div>
-  </div>
+        </div>
       </main>
     </>
   );
