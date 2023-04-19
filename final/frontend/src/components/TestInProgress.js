@@ -5,9 +5,7 @@ export function TestInProgress({ isActive, changePage }) {
   useEffect(() => {
     // when page loads, code in here runs one time
     if (isActive) {
-      setTimeout(() => {
-        startWorker();
-      }, 500);
+      startWorker();
     }
   }, [isActive]);
 
@@ -18,25 +16,13 @@ export function TestInProgress({ isActive, changePage }) {
   function startWorker() {
     const myWorker = new Worker("DigitsOfPi.js");
 
-    myWorker.postMessage(["Hello"]);
+    myWorker.postMessage("");
 
     myWorker.onmessage = function (e) {
-      console.log("Worker completed");
+      console.log(`Worker completed with value ${e}`);
     };
   }
 
-  function benchmarkOne() {
-    console.log("Starting benchmark one");
-    let i = 1n;
-    let x = 3n * 10n ** 1000020n;
-    let pi = x;
-    while (x > 0) {
-      x = (x * i) / ((i + 1n) * 4n);
-      pi += x / (i + 2n);
-      i += 2n;
-    }
-    console.log(pi / 10n ** 20n);
-  }
   return !isActive ? (
     <></>
   ) : (
