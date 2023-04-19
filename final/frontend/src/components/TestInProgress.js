@@ -17,6 +17,7 @@ export function TestInProgress({ isActive, changePage }) {
   }
 
   function benchmarkOne(){
+    console.log("This worked");
     let i = 1n;
     let x = 3n * (10n ** 1000020n);
     let pi = x;
@@ -50,6 +51,18 @@ export function TestInProgress({ isActive, changePage }) {
             class="bg-green-500 hover:bg-green-700 py-4 px-4 border-green-700 rounded"
             >
                 Cancel
+              </button>
+              
+          </div>
+
+          <div>
+            <button id="Start-Test"
+            onClick={() => {
+              benchmarkOne();
+            }}
+            class="bg-green-500 hover:bg-green-700 py-4 px-4 border-green-700 rounded"
+            >
+                Start Test
               </button>
               
           </div>
