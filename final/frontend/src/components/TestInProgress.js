@@ -2,6 +2,16 @@ import React, { useState, useEffect } from "react";
 import ReactLoading from "react-loading";
 
 export function TestInProgress({ isActive, changePage }) {
+  useEffect(() => {
+    // when page loads, code in here runs one time
+    if(isActive){
+      console.log("This worked");
+      // benchmarkOne();
+
+    }
+
+  }, [isActive]);
+
   function cancel(){
     changePage("Benchmark");
   }
@@ -20,6 +30,7 @@ export function TestInProgress({ isActive, changePage }) {
   return !isActive ? (
     <></>
   ) : (
+    
     <>
 
       <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
