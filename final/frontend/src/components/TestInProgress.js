@@ -46,18 +46,6 @@ export function TestInProgress({ isActive, changePage }) {
             Cancel
           </button>
         </div>
-
-        <div>
-          <button
-            id="Start-Test"
-            onClick={() => {
-              // benchmarkOne();
-            }}
-            className="bg-green-500 hover:bg-green-700 py-4 px-4 border-green-700 rounded"
-          >
-            Start Test
-          </button>
-        </div>
       </main>
     </>
   );

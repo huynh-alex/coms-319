@@ -1,6 +1,7 @@
 // Calculates digits of pi
 
 onmessage = function (e) {
+  const millis = Date.now();
   digits = 10000n;
 
   let i = 1n;
@@ -13,4 +14,5 @@ onmessage = function (e) {
   }
   const message = pi / 10n ** 20n;
   postMessage(message);
+  postMessage(Date.now() - millis);
 };
