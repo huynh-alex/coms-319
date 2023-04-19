@@ -12,6 +12,6 @@ create table if not exists spede.benchmarks (
     engine varchar(32), -- browser engine and version
     browser varchar(64), -- browser name and version
     device varchar(64), -- e.g. device model, type, vendor
-    ua varchar(256), -- user agent
+    signature varchar(256),
     PRIMARY KEY (id)
 );
