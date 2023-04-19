@@ -14,12 +14,12 @@ export function TestInProgress({ isActive, changePage }) {
   }
 
   function startWorker() {
-    const myWorker = new Worker("DigitsOfPi.js");
+    const myWorker = new Worker("./Benchmarks/DigitsOfPi.js");
 
     myWorker.postMessage("");
 
     myWorker.onmessage = function (e) {
-      console.log(`Worker completed with value ${e}`);
+      console.log(`Worker completed with value ${e.data}`);
     };
   }
 
@@ -27,8 +27,8 @@ export function TestInProgress({ isActive, changePage }) {
     <></>
   ) : (
     <>
-      <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
-        <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+      <main className="col-md-9 ms-sm-auto col-lg-10 px-md-4">
+        <div className="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
           <strong>Test in Progress</strong>
         </div>
         <div>
@@ -41,7 +41,7 @@ export function TestInProgress({ isActive, changePage }) {
             onClick={() => {
               cancel();
             }}
-            class="bg-green-500 hover:bg-green-700 py-4 px-4 border-green-700 rounded"
+            className="bg-green-500 hover:bg-green-700 py-4 px-4 border-green-700 rounded"
           >
             Cancel
           </button>
@@ -53,7 +53,7 @@ export function TestInProgress({ isActive, changePage }) {
             onClick={() => {
               // benchmarkOne();
             }}
-            class="bg-green-500 hover:bg-green-700 py-4 px-4 border-green-700 rounded"
+            className="bg-green-500 hover:bg-green-700 py-4 px-4 border-green-700 rounded"
           >
             Start Test
           </button>
