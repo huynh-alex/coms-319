@@ -51,7 +51,7 @@ export function TestInProgress({ isActive, changePage }) {
           <button
             id="Start-Test"
             onClick={() => {
-              benchmarkOne();
+              // benchmarkOne();
             }}
             class="bg-green-500 hover:bg-green-700 py-4 px-4 border-green-700 rounded"
           >

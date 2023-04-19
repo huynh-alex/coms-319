@@ -9,14 +9,14 @@ export function Sidebar({ changePage }) {
   return (
     <nav
       id="sidebarMenu"
-      class="col-md-3 col-lg-2 d-md-block bg-light sidebar collapse"
+      className="col-md-3 col-lg-2 d-md-block bg-light sidebar collapse"
     >
-      <div class="position-sticky pt-3 sidebar-sticky">
-        <ul class="nav flex-column">
-          <li class="nav-item">
+      <div className="position-sticky pt-3 sidebar-sticky">
+        <ul className="nav flex-column">
+          <li className="nav-item">
             <a
               id="Benchmark"
-              class="nav-link active"
+              className="nav-link active"
               aria-current="page"
               href="#"
               onClick={() => {
@@ -24,28 +24,28 @@ export function Sidebar({ changePage }) {
                 setActiveNavLink("Benchmark")
               }}
             >
-              <span data-feather="home" class="align-text-bottom"></span>
+              <span data-feather="home" className="align-text-bottom"></span>
               Benchmark
             </a>
           </li>
-          <li class="nav-item">
+          <li className="nav-item">
             <a
               id="MyResults"
-              class="nav-link"
+              className="nav-link"
               href="#"
               onClick={() => {
                 changePage("MyResults");
                 setActiveNavLink("MyResults")
               }}
             >
-              <span data-feather="file" class="align-text-bottom"></span>
+              <span data-feather="file" className="align-text-bottom"></span>
               My Results
             </a>
           </li>
-          <li class="nav-item">
+          <li className="nav-item">
             <a
               id="GlobalResults"
-              class="nav-link"
+              className="nav-link"
               href="#"
               onClick={() => {
                 changePage("GlobalResults");
@@ -54,7 +54,7 @@ export function Sidebar({ changePage }) {
             >
               <span
                 data-feather="shopping-cart"
-                class="align-text-bottom"
+                className="align-text-bottom"
               ></span>
               Global Results
             </a>
