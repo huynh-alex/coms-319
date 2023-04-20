@@ -3,6 +3,10 @@ import ReactLoading from "react-loading";
 
 export function TestInProgress({ isActive, changePage }) {
   const [benchmarkResults, setBenchmarkResults] = useState({});
+  const [testsCompleted, setTestsCompleted] = useState(0);
+
+  const benchmarkNames = ["Digits of Pi"];
+  const benchmarkLocations = ["./Benchmarks/DigitsOfPi.js"];
 
   useEffect(() => {
     if (isActive) {
@@ -14,7 +18,7 @@ export function TestInProgress({ isActive, changePage }) {
     console.log(benchmarkResults);
   }, [benchmarkResults]);
 
-  function cancel() {
+  function saveResults() {
     changePage("Benchmark");
   }
 
@@ -36,13 +40,18 @@ export function TestInProgress({ isActive, changePage }) {
         ...benchmarkResults,
         [benchmarkName]: roundedTime,
       }));
+      setTestsCompleted(testsCompleted + 1);
     };
   }
 
-  function startBenchmarks() {
-    const benchmarkNames = ["Digits of Pi"];
-    const benchmarkLocations = ["./Benchmarks/DigitsOfPi.js"];
+  useEffect(() => {
+    if (testsCompleted == benchmarkNames.length) {
+      const saveResultsButton = document.getElementById("saveResultsButton");
+      saveResultsButton.disabled = false;
+    }
+  }, [testsCompleted]);
 
+  function startBenchmarks() {
     for (var i in benchmarkNames) {
       timeBenchmark(benchmarkNames[i], benchmarkLocations[i]);
     }
@@ -56,19 +65,21 @@ export function TestInProgress({ isActive, changePage }) {
         <div className="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
           <strong>Test in Progress</strong>
         </div>
-        <div>
-          <ReactLoading type="balls" color="#0000FF" height={100} width={100} />
+
+        <div className="d-flex justify-content-center align-items-center text-align-center">
+          <ReactLoading type="balls" color="#0000FF" height={100} width={200} />
         </div>
 
-        <div>
+        <div style={{ position: "absolute", bottom: "1rem", right: "1rem" }}>
           <button
-            id="Testing-button"
+            id="saveResultsButton"
+            disabled
             onClick={() => {
-              cancel();
+              saveResults();
             }}
             className="bg-green-500 hover:bg-green-700 py-4 px-4 border-green-700 rounded"
           >
-            Cancel
+            Save results
           </button>
         </div>
       </main>
