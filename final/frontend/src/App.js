@@ -29,6 +29,7 @@ function App() {
         <TestInProgress
           isActive={page === "TestInProgress"}
           changePage={changePage}
+          userInfo={userInfo}
         />
         <UserInfo setUserInfo={setUserInfo} />
       </div>

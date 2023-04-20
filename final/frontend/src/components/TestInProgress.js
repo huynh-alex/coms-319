@@ -1,19 +1,27 @@
 import React, { useState, useEffect } from "react";
 import ReactLoading from "react-loading";
 
-export function TestInProgress({ isActive, changePage }) {
+export function TestInProgress({ isActive, changePage, userInfo }) {
   const [benchmarkResults, setBenchmarkResults] = useState({});
   const [benchmarksCompleted, setBenchmarksCompleted] = useState(0);
+
+  useEffect(() => {
+    if (benchmarksCompleted == benchmarkNames.length) {
+      const saveResultsButton = document.getElementById("saveResultsButton");
+      saveResultsButton.disabled = false;
+    }
+  }, [benchmarksCompleted]);
 
   const benchmarkNames = ["Digits of Pi", "Digits of Pi 2", "Digits of Pi 3"];
   const benchmarkLocations = [
     "./Benchmarks/DigitsOfPi.js",
-    "./Benchmarks/DigitsOfPi2.js",
-    "./Benchmarks/DigitsOfPi3.js",
+    "./Benchmarks/DigitsOfPi.js",
+    "./Benchmarks/DigitsOfPi.js",
   ];
 
   useEffect(() => {
     if (isActive) {
+
       const tableBody = document.getElementById("table-body");
 
       for (var i in benchmarkNames) {
@@ -38,15 +46,13 @@ export function TestInProgress({ isActive, changePage }) {
   }, [benchmarkResults]);
 
   function saveResults() {
-    changePage("Benchmark");
+    changePage("GlobalResults");
   }
 
   function timeBenchmark(benchmarkName, benchmarkLocation) {
     var start = performance.now();
     var myWorker = new Worker(benchmarkLocation);
     myWorker.postMessage("Start");
-
-    const tableBody = document.getElementById("table-body");
 
     myWorker.onmessage = function (e) {
       var end = performance.now();
@@ -67,16 +73,6 @@ export function TestInProgress({ isActive, changePage }) {
       cell.innerHTML = roundedTime;
     };
   }
-  function addTableRow(benchmarkNum, benchmarkName, runtime) {
-    // Modify the content of the new row
-  }
-
-  useEffect(() => {
-    if (benchmarksCompleted == benchmarkNames.length) {
-      const saveResultsButton = document.getElementById("saveResultsButton");
-      saveResultsButton.disabled = false;
-    }
-  }, [benchmarksCompleted]);
 
   function startBenchmarks() {
     for (var i in benchmarkNames) {
@@ -111,7 +107,7 @@ export function TestInProgress({ isActive, changePage }) {
         <div style={{ position: "absolute", bottom: "1rem", right: "1rem" }}>
           <button
             id="saveResultsButton"
-            disabled
+            // disabled
             onClick={() => {
               saveResults();
             }}
