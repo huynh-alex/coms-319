@@ -23,10 +23,10 @@ Benchmark.create = (newBenchmark, resultCallback) => {
   });
 };
 
-Benchmark.update = (ua, updatedBenchmark, resultCallback) => {
+Benchmark.update = (signature, updatedBenchmark, resultCallback) => {
   sql.query(
-    "UPDATE benchmarks SET ? WHERE ua = ?",
-    [updatedBenchmark, ua],
+    "UPDATE benchmarks SET ? WHERE signature = ?",
+    [updatedBenchmark, signature],
     (err) => {
       if (err) {
         console.log(`Error: ${err.message}`);
@@ -55,8 +55,8 @@ Benchmark.getAll = (resultCallback) => {
   });
 };
 
-Benchmark.deleteBenchmark = (ua, resultCallback) => {
-  sql.query("DELETE FROM benchmarks WHERE ua = ?", [ua], (err) => {
+Benchmark.deleteBenchmark = (signature, resultCallback) => {
+  sql.query("DELETE FROM benchmarks WHERE signature = ?", [signature], (err) => {
     if (err) {
       console.log(`Error: ${err.message}`);
       if (err.sqlMessage) {

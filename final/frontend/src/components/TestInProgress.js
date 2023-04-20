@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import ReactLoading from "react-loading";
+import { createBenchmark } from "../services/benchmarks";
 
 export function TestInProgress({ isActive, changePage, userInfo }) {
   const [benchmarkResults, setBenchmarkResults] = useState({});
@@ -21,7 +22,6 @@ export function TestInProgress({ isActive, changePage, userInfo }) {
 
   useEffect(() => {
     if (isActive) {
-
       const tableBody = document.getElementById("table-body");
 
       for (var i in benchmarkNames) {
@@ -34,11 +34,10 @@ export function TestInProgress({ isActive, changePage, userInfo }) {
         newCell3.innerHTML = `<div class="spinner-border spinner-border-sm" role="status" >
           <span class="sr-only"></span>
         </div>`;
-        newCell3.setAttribute('id', benchmarkNames[i]);
+        newCell3.setAttribute("id", benchmarkNames[i]);
       }
       startBenchmarks();
     }
-
   }, [isActive]);
 
   useEffect(() => {
@@ -46,7 +45,31 @@ export function TestInProgress({ isActive, changePage, userInfo }) {
   }, [benchmarkResults]);
 
   function saveResults() {
-    changePage("GlobalResults");
+    // Construct benchmark object to send to API
+    var benchmarkObject = {};
+    for (var i in benchmarkNames) {
+      benchmarkObject[`test${parseInt(i) + 1}`] =
+        benchmarkResults[benchmarkNames[i]];
+    }
+    benchmarkObject = {
+      ...benchmarkObject,
+      ...userInfo,
+    };
+    console.log(benchmarkObject);
+
+    // Call API
+    createBenchmark(benchmarkObject)
+      .then(() => {
+        console.log("Then");
+      })
+      .catch(() => {
+        console.log("Catch");
+      })
+      .finally(() => {
+        console.log("Finally");
+      });
+
+    // changePage("GlobalResults");
   }
 
   function timeBenchmark(benchmarkName, benchmarkLocation) {
