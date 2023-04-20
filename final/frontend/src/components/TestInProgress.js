@@ -6,12 +6,9 @@ export function TestInProgress({ isActive, changePage }) {
     // when page loads, code in here runs one time
     if (isActive) {
       startWorker();
+      changePage("MyResults");
     }
   }, [isActive]);
-
-  function cancel() {
-    changePage("Benchmark");
-  }
 
   function startWorker() {
     const myWorker = new Worker("./Benchmarks/DigitsOfPi.js");
@@ -20,6 +17,18 @@ export function TestInProgress({ isActive, changePage }) {
 
     myWorker.onmessage = function (e) {
       console.log(`Worker completed with value ${e.data}`);
+
+      
+    };
+
+    const newWorker = new Worker("./Benchmarks/SortingArray.js");
+
+    newWorker.postMessage("");
+
+    newWorker.onmessage = function (e) {
+      console.log(`Worker completed with value ${e.data}`);
+
+      
     };
   }
 
@@ -34,18 +43,7 @@ export function TestInProgress({ isActive, changePage }) {
         <div>
           <ReactLoading type="balls" color="#0000FF" height={100} width={100} />
         </div>
-
-        <div>
-          <button
-            id="Testing-button"
-            onClick={() => {
-              cancel();
-            }}
-            className="bg-green-500 hover:bg-green-700 py-4 px-4 border-green-700 rounded"
-          >
-            Cancel
-          </button>
-        </div>
+        
       </main>
     </>
   );
