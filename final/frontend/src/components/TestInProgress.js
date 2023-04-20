@@ -2,25 +2,50 @@ import React, { useState, useEffect } from "react";
 import ReactLoading from "react-loading";
 
 export function TestInProgress({ isActive, changePage }) {
+  const [benchmarkResults, setBenchmarkResults] = useState({});
+
   useEffect(() => {
-    // when page loads, code in here runs one time
     if (isActive) {
-      startWorker();
+      startBenchmarks();
     }
   }, [isActive]);
+
+  useEffect(() => {
+    console.log(benchmarkResults);
+  }, [benchmarkResults]);
 
   function cancel() {
     changePage("Benchmark");
   }
 
-  function startWorker() {
-    const myWorker = new Worker("./Benchmarks/DigitsOfPi.js");
-
-    myWorker.postMessage("");
+  function timeBenchmark(benchmarkName, benchmarkLocation) {
+    var start = performance.now();
+    var myWorker = new Worker(benchmarkLocation);
+    myWorker.postMessage("Start");
 
     myWorker.onmessage = function (e) {
-      console.log(`Worker completed with value ${e.data}`);
+      var end = performance.now();
+      // console.log(`Worker completed with value ${e.data}`);
+
+      // convert to seconds
+      var timeInSecs = (end - start) / 1000;
+      // round to 2 decimals
+      var roundedTime = Math.round(timeInSecs * 100) / 100;
+
+      setBenchmarkResults((benchmarkResults) => ({
+        ...benchmarkResults,
+        [benchmarkName]: roundedTime,
+      }));
     };
+  }
+
+  function startBenchmarks() {
+    const benchmarkNames = ["Digits of Pi"];
+    const benchmarkLocations = ["./Benchmarks/DigitsOfPi.js"];
+
+    for (var i in benchmarkNames) {
+      timeBenchmark(benchmarkNames[i], benchmarkLocations[i]);
+    }
   }
 
   return !isActive ? (

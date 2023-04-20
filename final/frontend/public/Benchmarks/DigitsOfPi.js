@@ -13,6 +13,6 @@ onmessage = function (e) {
     i += 2n;
   }
   const message = pi / 10n ** 20n;
-  postMessage(message);
+  // postMessage(message);
   postMessage(Date.now() - millis);
 };
