@@ -1,6 +1,7 @@
 import Benchmark from "../models/benchmarks.model.js";
 
 const create = (req, res) => {
+  console.log(req.body);
   if (!req.body) {
     res.status(400).send({ message: "Empty request body" });
     return;
@@ -51,6 +52,18 @@ const getAll = (req, res) => {
   });
 };
 
+const getBySignature = (req, res) => {
+  Benchmark.getBySignature(req.params.signature, (err, benchmark) => {
+    if (err) {
+      res.status(500).send({
+        message: 'An error occurred while fetching the benchmark.',
+      });
+      return;
+    }
+    res.send(benchmark);
+  });
+};
+
 const deleteBenchmark = (req, res) => {
   Benchmark.deleteBenchmark(req.body.ua, (err, user) => {
     if (err) {
@@ -63,4 +76,4 @@ const deleteBenchmark = (req, res) => {
 };
 
 
-export default { create, getAll, update, deleteBenchmark };
+export default { create, getAll, update, deleteBenchmark, getBySignature };

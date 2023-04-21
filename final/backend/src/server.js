@@ -1,10 +1,13 @@
 import * as dotenv from "dotenv";
 dotenv.config();
 import express from "express";
+import cors from 'cors';
+import bodyParser from 'body-parser';
 import BenchmarkRoutes from "./routes/benchmark.routes.js";
 
 const PORT = process.env.PORT || 8080;
 const app = express();
+app.use(cors(), bodyParser.json());
 
 app.get("/", (req, res) => {
   res.json({ version: "1.0.0" });

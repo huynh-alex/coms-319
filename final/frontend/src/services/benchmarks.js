@@ -1,4 +1,4 @@
-const BASE_URL = process.env.NUXT_ENV_API_URL;
+const BASE_URL = process.env.REACT_APP_API_URL;
 
 export async function getBenchmarks() {
   const res = await fetch(`${BASE_URL}/benchmarks/`);
@@ -9,13 +9,31 @@ export async function getBenchmarks() {
   return benchmarks;
 }
 
-export async function createBenchmark(benchmark) {
-  const res = await fetch(`${BASE_URL}/benchmarks/`, {
-    method: "POST",
-    body: JSON.stringify(benchmark),
-  });
+export async function getBenchmark(signature) {
+  const res = await fetch(`${BASE_URL}/benchmarks/${signature}`);
   if (!res.ok) {
     throw new Error(res.statusText);
+  }
+  const benchmark = await res.json();
+  return benchmark;
+}
+
+export async function createBenchmark(benchmark) {
+  try {
+    const res = await fetch(`${BASE_URL}/benchmarks/`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(benchmark),
+    });
+    if (!res.ok) {
+      const error = await res.json();
+      console.error(error);
+      throw new Error(res.statusText);
+    }
+  } catch (error) {
+    console.error(error);
   }
 }
 
@@ -23,6 +41,9 @@ export async function updateBenchmark(benchmark) {
   const res = await fetch(`${BASE_URL}/benchmarks/`, {
     method: "PATCH",
     body: JSON.stringify(benchmark),
+    headers: {
+      "Content-Type": "application/json",
+    },
   });
   if (!res.ok) {
     throw new Error(res.statusText);
@@ -33,6 +54,9 @@ export async function deleteBenchmark(benchmark) {
   const res = await fetch(`${BASE_URL}/benchmarks/`, {
     method: "DELETE",
     body: JSON.stringify(benchmark),
+    headers: {
+      "Content-Type": "application/json",
+    },
   });
   if (!res.ok) {
     throw new Error(res.statusText);

@@ -21,7 +21,11 @@ function App() {
       <div className="row">
         <Sidebar changePage={changePage} />
         <Benchmark isActive={page === "Benchmark"} changePage={changePage} />
-        <MyResults isActive={page === "MyResults"} changePage={changePage} />
+        <MyResults
+          isActive={page === "MyResults"}
+          changePage={changePage}
+          userInfo={userInfo}
+        />
         <GlobalResults
           isActive={page === "GlobalResults"}
           changePage={changePage}
@@ -29,6 +33,7 @@ function App() {
         <TestInProgress
           isActive={page === "TestInProgress"}
           changePage={changePage}
+          userInfo={userInfo}
         />
         <UserInfo setUserInfo={setUserInfo} />
       </div>
