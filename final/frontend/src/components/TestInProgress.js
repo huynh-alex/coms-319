@@ -78,34 +78,33 @@ export function TestInProgress({ isActive, changePage, userInfo }) {
     // changePage("GlobalResults");
   }
 
-  function timeBenchmark(benchmarkName, benchmarkLocation) {
-    var start = performance.now();
-    var myWorker = new Worker(benchmarkLocation);
-    myWorker.postMessage("Start");
-
-    myWorker.onmessage = function (e) {
-      var end = performance.now();
-      // console.log(`Worker completed with value ${e.data}`);
-
-      // convert to seconds
-      var timeInSecs = (end - start) / 1000;
-      // round to 2 decimals
-      var roundedTime = Math.round(timeInSecs * 100) / 100;
-
-      setBenchmarkResults((benchmarkResults) => ({
-        ...benchmarkResults,
-        [benchmarkName]: roundedTime,
-      }));
-      setBenchmarksCompleted(benchmarksCompleted + 1);
-
-      const cell = document.getElementById(benchmarkName);
-      cell.innerHTML = roundedTime;
-    };
-  }
-
-  function startBenchmarks() {
+  async function startBenchmarks() {
     for (var i in benchmarkNames) {
-      timeBenchmark(benchmarkNames[i], benchmarkLocations[i]);
+      await new Promise((resolve) => {
+        var start = performance.now();
+        var myWorker = new Worker(benchmarkLocations[i]);
+        myWorker.postMessage("Start");
+
+        myWorker.onmessage = function (e) {
+          var end = performance.now();
+          // console.log(`Worker completed with value ${e.data}`);
+
+          // convert to seconds
+          var timeInSecs = (end - start) / 1000;
+          // round to 2 decimals
+          var roundedTime = Math.round(timeInSecs * 100) / 100;
+
+          setBenchmarkResults((benchmarkResults) => ({
+            ...benchmarkResults,
+            [benchmarkNames[i]]: roundedTime,
+          }));
+          const cell = document.getElementById(benchmarkNames[i]);
+          cell.innerHTML = roundedTime;
+
+          setBenchmarksCompleted(benchmarksCompleted + 1);
+          resolve();
+        };
+      });
     }
   }
 
