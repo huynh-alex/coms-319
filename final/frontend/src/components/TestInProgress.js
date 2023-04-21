@@ -4,12 +4,14 @@ import { createBenchmark } from "../services/benchmarks";
 
 export function TestInProgress({ isActive, changePage, userInfo }) {
   const [benchmarkResults, setBenchmarkResults] = useState({});
-  const [benchmarksCompleted, setBenchmarksCompleted] = useState(0);
+  const [benchmarksCompleted, setBenchmarksCompleted] = useState({ count: 0 });
 
   useEffect(() => {
-    if (benchmarksCompleted == benchmarkNames.length) {
+    console.log(benchmarksCompleted.count, benchmarkNames.length);
+    if (benchmarksCompleted.count == benchmarkNames.length) {
       const saveResultsButton = document.getElementById("saveResultsButton");
       saveResultsButton.disabled = false;
+      saveResultsButton.removeAttribute("disabled");
     }
   }, [benchmarksCompleted]);
 
@@ -101,7 +103,9 @@ export function TestInProgress({ isActive, changePage, userInfo }) {
           const cell = document.getElementById(benchmarkNames[i]);
           cell.innerHTML = roundedTime;
 
-          setBenchmarksCompleted(benchmarksCompleted + 1);
+          setBenchmarksCompleted((prevState) => ({
+            count: prevState.count + 1
+          }));
           resolve();
         };
       });
@@ -135,7 +139,7 @@ export function TestInProgress({ isActive, changePage, userInfo }) {
         <div style={{ position: "absolute", bottom: "1rem", right: "1rem" }}>
           <button
             id="saveResultsButton"
-            // disabled
+            disabled
             onClick={() => {
               saveResults();
             }}
