@@ -25,16 +25,18 @@ export function TestInProgress({ isActive, changePage, userInfo }) {
       const tableBody = document.getElementById("table-body");
 
       for (var i in benchmarkNames) {
-        const newRow = tableBody.insertRow();
-        const newCell1 = newRow.insertCell(0);
-        const newCell2 = newRow.insertCell(1);
-        const newCell3 = newRow.insertCell(2);
-        newCell1.innerHTML = parseInt(i) + 1;
-        newCell2.innerHTML = benchmarkNames[i];
-        newCell3.innerHTML = `<div class="spinner-border spinner-border-sm" role="status" >
+        if (!document.getElementById(benchmarkNames[i])) {
+          const newRow = tableBody.insertRow();
+          const newCell1 = newRow.insertCell(0);
+          const newCell2 = newRow.insertCell(1);
+          const newCell3 = newRow.insertCell(2);
+          newCell1.innerHTML = parseInt(i) + 1;
+          newCell2.innerHTML = benchmarkNames[i];
+          newCell3.innerHTML = `<div class="spinner-border spinner-border-sm" role="status" >
           <span class="sr-only"></span>
-        </div>`;
-        newCell3.setAttribute("id", benchmarkNames[i]);
+          </div>`;
+          newCell3.setAttribute("id", benchmarkNames[i]);
+        }
       }
       startBenchmarks();
     }
@@ -57,8 +59,8 @@ export function TestInProgress({ isActive, changePage, userInfo }) {
     };
     benchmarkObject = {
       ...benchmarkObject,
-      "test_date": new Date().toISOString().slice(0, 19).replace('T', ' ')
-    }
+      test_date: new Date().toISOString().slice(0, 19).replace("T", " "),
+    };
     console.log(benchmarkObject);
 
     // Call API
