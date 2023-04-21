@@ -1,12 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { getBenchmark } from "../services/benchmarks";
 
-function sortObject(obj) {
-  return Object.fromEntries(
-    Object.entries(obj).sort((a, b) => a[0].localeCompare(b[0]))
-  );
-}
-
 export function MyResults({ isActive, userInfo }) {
   const [benchmark, setBenchmark] = useState({});
 
