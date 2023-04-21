@@ -68,3 +68,14 @@ This section has moved here: [https://facebook.github.io/create-react-app/docs/d
 ### `npm run build` fails to minify
 
 This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+
+
+# Spede Frontend
+
+## One time setup
+
+- In this directory, `./frontend`, create a `.env` file with the following fields:
+
+```
+REACT_APP_API_URL = <localhost>:<port> or <ip address of VM>:<port>
+```
