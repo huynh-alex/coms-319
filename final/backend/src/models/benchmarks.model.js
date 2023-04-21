@@ -13,12 +13,12 @@ const Benchmark = function (benchmark) {
   this.cpu_arch = benchmark.cpu_arch;
   this.os = benchmark.os;
   this.engine = benchmark.engine;
-  this.browser = benchmark.engine;
+  this.browser = benchmark.browser;
   this.device = JSON.stringify(benchmark.device);
 };
 
 Benchmark.create = (newBenchmark, resultCallback) => {
-  sql.query("INSERT INTO benchmarks SET ?", newBenchmark, (err) => {
+  sql.query("REPLACE INTO benchmarks SET ?", newBenchmark, (err) => {
     if (err) {
       console.log(`Error: ${err.message}`);
       if (err.sqlMessage) {
