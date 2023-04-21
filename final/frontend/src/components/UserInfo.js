@@ -23,11 +23,11 @@ export function UserInfo({ setUserInfo }) {
     setUserInfo({
       ram: navigator.deviceMemory,
       cpu_cores: navigator.hardwareConcurrency,
-      cpu_arch: uap.getCPU(),
-      os: uap.getOS(),
-      engine: uap.getEngine(),
-      browser: uap.getBrowser(),
-      device: uap.getDevice(),
+      cpu_arch: JSON.stringify(uap.getCPU()),
+      os: JSON.stringify(uap.getOS()),
+      engine: JSON.stringify(uap.getEngine()),
+      browser: JSON.stringify(uap.getBrowser()),
+      device: JSON.stringify(uap.getDevice()),
       signature: hashCode(signature),
     });
   }, []);

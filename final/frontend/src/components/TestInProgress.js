@@ -55,6 +55,10 @@ export function TestInProgress({ isActive, changePage, userInfo }) {
       ...benchmarkObject,
       ...userInfo,
     };
+    benchmarkObject = {
+      ...benchmarkObject,
+      "test_date": new Date().toISOString().slice(0, 19).replace('T', ' ')
+    }
     console.log(benchmarkObject);
 
     // Call API

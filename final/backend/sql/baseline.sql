@@ -13,10 +13,10 @@ create table if not exists benchmarks (
     test_date datetime,
     ram int,
     cpu_cores int,
-    cpu_arch varchar(32), -- e.g. amd64
+    cpu_arch varchar(256), -- e.g. amd64
     os varchar(256), -- os name and version
-    engine varchar(32), -- browser engine and version
-    browser varchar(64), -- browser name and version
-    device varchar(64), -- e.g. device model, type, vendor
+    engine varchar(256), -- browser engine and version
+    browser varchar(256), -- browser name and version
+    device varchar(256), -- e.g. device model, type, vendor
     PRIMARY KEY (signature)
 );

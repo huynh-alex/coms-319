@@ -1,6 +1,11 @@
 import React, { useState, useEffect } from "react";
 
-export function MyResults({ isActive }) {
+export function MyResults({ isActive, userInfo }) {
+  
+  useEffect(() => {
+
+  }, [isActive])
+  
   return !isActive ? (
     <></>
   ) : (
