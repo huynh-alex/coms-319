@@ -14,7 +14,7 @@ const Benchmark = function (benchmark) {
   this.os = benchmark.os;
   this.engine = benchmark.engine;
   this.browser = benchmark.browser;
-  this.device = JSON.stringify(benchmark.device);
+  this.device = benchmark.device;
 };
 
 Benchmark.create = (newBenchmark, resultCallback) => {
