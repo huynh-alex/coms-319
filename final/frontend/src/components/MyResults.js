@@ -20,20 +20,22 @@ export function MyResults({ isActive, userInfo }) {
   }, [isActive]);
 
   useEffect(() => {
-    const sortedBenchmark = sortObject(benchmark);
-    const userinfoTableBody = document.getElementById("userinfo-table-body");
-    const scoresTableBody = document.getElementById("scores-table-body");
-    const regex = /test\d+/;
-    var newRow;
-    Object.keys(sortedBenchmark).forEach((key) => {
-      if (regex.test(key)) newRow = scoresTableBody.insertRow();
-      else newRow = userinfoTableBody.insertRow();
+    if (document.getElementById("userinfo-table-body")) {
+      const sortedBenchmark = sortObject(benchmark);
+      const userinfoTableBody = document.getElementById("userinfo-table-body");
+      const scoresTableBody = document.getElementById("scores-table-body");
+      const regex = /test\d+/;
+      var newRow;
+      Object.keys(sortedBenchmark).forEach((key) => {
+        if (regex.test(key)) newRow = scoresTableBody.insertRow();
+        else newRow = userinfoTableBody.insertRow();
 
-      const newCell1 = newRow.insertCell(0);
-      const newCell2 = newRow.insertCell(1);
-      newCell1.innerHTML = key;
-      newCell2.innerHTML = sortedBenchmark[key];
-    });
+        const newCell1 = newRow.insertCell(0);
+        const newCell2 = newRow.insertCell(1);
+        newCell1.innerHTML = key;
+        newCell2.innerHTML = sortedBenchmark[key];
+      });
+    }
   }, [benchmark]);
 
   return !isActive ? (
