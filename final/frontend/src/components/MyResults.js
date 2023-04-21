@@ -21,19 +21,18 @@ export function MyResults({ isActive, userInfo }) {
 
   useEffect(() => {
     if (document.getElementById("userinfo-table-body")) {
-      const sortedBenchmark = sortObject(benchmark);
       const userinfoTableBody = document.getElementById("userinfo-table-body");
       const scoresTableBody = document.getElementById("scores-table-body");
       const regex = /test\d+/;
       var newRow;
-      Object.keys(sortedBenchmark).forEach((key) => {
+      Object.keys(benchmark).forEach((key) => {
         if (regex.test(key)) newRow = scoresTableBody.insertRow();
         else newRow = userinfoTableBody.insertRow();
 
         const newCell1 = newRow.insertCell(0);
         const newCell2 = newRow.insertCell(1);
         newCell1.innerHTML = key;
-        newCell2.innerHTML = sortedBenchmark[key];
+        newCell2.innerHTML = benchmark[key];
       });
     }
   }, [benchmark]);
