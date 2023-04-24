@@ -39,28 +39,44 @@ export function MyResults({ isActive, userInfo }) {
       const scoresTableBody = document.getElementById("scores-table-body");
       const regex = /test\d+/;
       var newRow;
-      Object.keys(benchmark).forEach((key) => {
-        if (regex.test(key)) newRow = scoresTableBody.insertRow();
-        else newRow = userinfoTableBody.insertRow();
+      if (benchmark && isActive) {
+        Object.keys(benchmark).forEach((key) => {
+          if (regex.test(key)) newRow = scoresTableBody.insertRow();
+          else newRow = userinfoTableBody.insertRow();
 
-        const newCell1 = newRow.insertCell(0);
-        const newCell2 = newRow.insertCell(1);
-        newCell1.innerHTML = regex.test(key)
-          ? testPrettify[key]
-          : userInfoPrettify[key];
+          const newCell1 = newRow.insertCell(0);
+          const newCell2 = newRow.insertCell(1);
+          newCell1.innerHTML = regex.test(key)
+            ? testPrettify[key]
+            : userInfoPrettify[key];
 
-        if (String(benchmark[key]).includes("{")) {
-          let obj = JSON.parse(benchmark[key]);
-          let listElement = "<ul>";
-          for (var objKey in obj) {
-            listElement += `<li>${objKey}: ${obj[objKey]}</li>`;
+          if (String(benchmark[key]).includes("{")) {
+            let obj = JSON.parse(benchmark[key]);
+            let listElement = "<ul>";
+            for (var objKey in obj) {
+              listElement += `<li>${objKey}: ${obj[objKey]}</li>`;
+            }
+            listElement += "</ul>";
+            newCell2.innerHTML = listElement;
+          } else if (key === "test_date") {
+            let d = new Date(benchmark[key]);
+            console.log(d);
+            var datestring =
+              d.getMonth() +
+              "/" +
+              (d.getDate()) +
+              "/" +
+              d.getFullYear() +
+              " " +
+              d.getHours() +
+              ":" +
+              d.getMinutes();
+            newCell2.innerHTML = datestring;
+          } else {
+            newCell2.innerHTML = benchmark[key];
           }
-          listElement += "</ul>";
-          newCell2.innerHTML = listElement;
-        } else {
-          newCell2.innerHTML = benchmark[key];
-        }
-      });
+        });
+      }
     }
   }, [benchmark]);
 
