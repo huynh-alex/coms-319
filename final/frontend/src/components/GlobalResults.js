@@ -9,13 +9,13 @@ export function GlobalResults({ isActive }) {
   const [benchmarks, setBenchmarks] = useState([]);
 
   const [showModal, setShowModal] = useState(false);
-    
+
   const openModal = () => {
     setShowModal(true);
   };
 
   const closeModal = () => {
-    setShowModal(false);
+    // setShowModal(false);
   };
 
   useEffect(() => {
@@ -26,7 +26,10 @@ export function GlobalResults({ isActive }) {
   }, [isActive]);
 
   useEffect(() => {
+    console.log(showModal);
+  }, [showModal]);
 
+  useEffect(() => {
     console.log("Updating benchmarks");
     if (document.getElementById("benchmarks-table-body")) {
       const benchmarksTableBody = document.getElementById(
@@ -58,12 +61,18 @@ export function GlobalResults({ isActive }) {
                   total += parseFloat(benchmark[benchmarkKey]);
                 }
               }
-              cell.innerHTML = total;
+              cell.textContent = total;
             } else if (cellNames[i] === "Signature") {
-              cell.innerHTML = `<button onclick="(() => { console.log(1); })()">${benchmark[cellNames[i].toLowerCase()]}</button>`;
-            } 
-            else {
-              cell.innerHTML = benchmark[cellNames[i].toLowerCase()];
+            
+              const button = document.createElement("button");
+              button.textContent = benchmark[cellNames[i].toLowerCase()];
+              button.addEventListener("click", () => {
+                setShowModal(true);
+                console.log(showModal)
+              });
+              cell.appendChild(button);
+            } else {
+              cell.textContent = benchmark[cellNames[i].toLowerCase()];
             }
           }
         }
