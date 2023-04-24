@@ -2,7 +2,7 @@
 
 onmessage = function (e) {
   const millis = Date.now();
-  digits = 30000n;
+  digits = 10000n;
 
   let i = 1n;
   let x = 3n * 10n ** (digits + 20n);

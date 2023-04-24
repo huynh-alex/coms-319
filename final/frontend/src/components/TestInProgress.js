@@ -15,11 +15,13 @@ export function TestInProgress({ isActive, changePage, userInfo }) {
     }
   }, [benchmarksCompleted]);
 
-  const benchmarkNames = ["Digits of Pi", "Digits of Pi 2", "Digits of Pi 3"];
+  const benchmarkNames = ["10,000 Digits of Pi", "1024 Square Integer Matrix Multiply", "1024 Square Floating Point Matrix Multiply", "Sort 100 Million Numbers", "Sum of First 100,000 Primes"];
   const benchmarkLocations = [
     "./Benchmarks/DigitsOfPi.js",
-    "./Benchmarks/DigitsOfPi.js",
-    "./Benchmarks/DigitsOfPi.js",
+    "./Benchmarks/IntegerMatrixMultiply.js",
+    "./Benchmarks/FloatingMatrixMultiply.js",
+    "./Benchmarks/Sorting.js",
+    "./Benchmarks/SumOfPrimes.js",
   ];
 
   useEffect(() => {
@@ -93,8 +95,8 @@ export function TestInProgress({ isActive, changePage, userInfo }) {
 
           // convert to seconds
           var timeInSecs = (end - start) / 1000;
-          // round to 2 decimals
-          var roundedTime = Math.round(timeInSecs * 100) / 100;
+          // round to 3 decimals
+          var roundedTime = Math.round(timeInSecs * 1000) / 1000;
 
           setBenchmarkResults((benchmarkResults) => ({
             ...benchmarkResults,
