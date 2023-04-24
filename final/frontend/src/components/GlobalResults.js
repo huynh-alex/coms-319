@@ -1,4 +1,7 @@
 import { getBenchmarks } from "../services/benchmarks";
+import $ from "jquery";
+import "datatables.net-dt/css/jquery.dataTables.min.css";
+import "datatables.net/js/jquery.dataTables.min.js";
 
 import React, { useState, useEffect } from "react";
 
@@ -13,6 +16,7 @@ export function GlobalResults({ isActive }) {
   }, [isActive]);
 
   useEffect(() => {
+    console.log("Updating benchmarks");
     if (document.getElementById("benchmarks-table-body")) {
       const benchmarksTableBody = document.getElementById(
         "benchmarks-table-body"
@@ -50,6 +54,10 @@ export function GlobalResults({ isActive }) {
           }
         }
       }
+      $(document).ready(function () {
+        $("#dtBasicExample").DataTable();
+        $(".dataTables_length").addClass("bs-select");
+      });
     }
   }, [benchmarks]);
 
@@ -62,7 +70,13 @@ export function GlobalResults({ isActive }) {
           <div className="container">
             <div className="col">
               <div className="row">
-                <table style={{ marginTop: "5rem" }} className="table">
+                {/* <table style={{ marginTop: "5rem" }} className="table"> */}
+                <table
+                  id="dtBasicExample"
+                  className="table table-striped table-bordered table-sm"
+                  cellspacing="0"
+                  width="100%"
+                >
                   <thead className="thead-dark">
                     <tr>
                       <th scope="col">Total</th>
