@@ -52,9 +52,6 @@ export function TestInProgress({ isActive, changePage, userInfo }) {
     }
   }, [isActive]);
 
-  useEffect(() => {
-    console.log("New results: ", benchmarkResults);
-  }, [benchmarkResults]);
 
   function saveResults() {
     console.log("Saving results");
@@ -107,7 +104,6 @@ export function TestInProgress({ isActive, changePage, userInfo }) {
           // round to 4 decimals
           var roundedTime = Math.round(timeInSecs * 10000) / 10000;
 
-          console.log(benchmarkName);
           setBenchmarkResults((benchmarkResults) => ({
             ...benchmarkResults,
             [benchmarkName]: roundedTime,

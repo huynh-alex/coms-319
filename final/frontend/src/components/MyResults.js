@@ -4,6 +4,26 @@ import { getBenchmark } from "../services/benchmarks";
 export function MyResults({ isActive, userInfo }) {
   const [benchmark, setBenchmark] = useState({});
 
+  const userInfoPrettify = {
+    signature: "Signature",
+    test_date: "Test Date",
+    ram: "RAM (min)",
+    cpu_cores: "Logical CPU Cores",
+    cpu_arch: "CPU Architecture",
+    os: "Operating System",
+    engine: "Engine",
+    browser: "Browser",
+    device: "Device",
+  };
+
+  const testPrettify = {
+    test1: "10,000 Digits of Pi",
+    test2: "1024 Square Integer Matrix Multiply",
+    test3: "1024 Square Floating Point Matrix Multiply",
+    test4: "Sort 100 Million Numbers",
+    test5: "Sum of First 100,000 Primes",
+  };
+
   useEffect(() => {
     if (userInfo.signature) {
       getBenchmark(userInfo.signature).then((res) => {
@@ -25,8 +45,21 @@ export function MyResults({ isActive, userInfo }) {
 
         const newCell1 = newRow.insertCell(0);
         const newCell2 = newRow.insertCell(1);
-        newCell1.innerHTML = key;
-        newCell2.innerHTML = benchmark[key];
+        newCell1.innerHTML = regex.test(key)
+          ? testPrettify[key]
+          : userInfoPrettify[key];
+
+        if (String(benchmark[key]).includes("{")) {
+          let obj = JSON.parse(benchmark[key]);
+          let listElement = "<ul>";
+          for (var objKey in obj) {
+            listElement += `<li>${objKey}: ${obj[objKey]}</li>`;
+          }
+          listElement += "</ul>";
+          newCell2.innerHTML = listElement;
+        } else {
+          newCell2.innerHTML = benchmark[key];
+        }
       });
     }
   }, [benchmark]);

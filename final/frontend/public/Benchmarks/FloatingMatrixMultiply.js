@@ -1,6 +1,6 @@
 onmessage = function (e) {
   const millis = Date.now();
-  let size = 512;
+  let size = 256;
 
   let a = new Array(size).fill().map(() => new Array(size).fill());
 
