@@ -8,6 +8,16 @@ import React, { useState, useEffect } from "react";
 export function GlobalResults({ isActive }) {
   const [benchmarks, setBenchmarks] = useState([]);
 
+  const [showModal, setShowModal] = useState(false);
+    
+  const openModal = () => {
+    setShowModal(true);
+  };
+
+  const closeModal = () => {
+    setShowModal(false);
+  };
+
   useEffect(() => {
     getBenchmarks().then((res) => {
       console.log(res);
@@ -16,6 +26,7 @@ export function GlobalResults({ isActive }) {
   }, [isActive]);
 
   useEffect(() => {
+
     console.log("Updating benchmarks");
     if (document.getElementById("benchmarks-table-body")) {
       const benchmarksTableBody = document.getElementById(
@@ -48,7 +59,10 @@ export function GlobalResults({ isActive }) {
                 }
               }
               cell.innerHTML = total;
-            } else {
+            } else if (cellNames[i] === "Signature") {
+              cell.innerHTML = `<button onclick="(() => { console.log(1); })()">${benchmark[cellNames[i].toLowerCase()]}</button>`;
+            } 
+            else {
               cell.innerHTML = benchmark[cellNames[i].toLowerCase()];
             }
           }
@@ -67,6 +81,40 @@ export function GlobalResults({ isActive }) {
     <>
       <main className="col-md-9 ms-sm-auto col-lg-10 px-md-4">
         <div className="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3">
+          {showModal && (
+            <div className="modal fade" tabIndex="-1" role="dialog">
+              <div className="modal-dialog" role="document">
+                <div className="modal-content">
+                  <div className="modal-header">
+                    <h5 className="modal-title">Modal title</h5>
+                    <button
+                      type="button"
+                      className="close"
+                      data-dismiss="modal"
+                      aria-label="Close"
+                      onClick={closeModal}
+                    >
+                      <span aria-hidden="true">&times;</span>
+                    </button>
+                  </div>
+                  <div className="modal-body">...</div>
+                  <div className="modal-footer">
+                    <button
+                      type="button"
+                      className="btn btn-secondary"
+                      data-dismiss="modal"
+                      onClick={closeModal}
+                    >
+                      Close
+                    </button>
+                    <button type="button" className="btn btn-primary">
+                      Save changes
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          )}
           <div className="container">
             <div className="col">
               <div className="row">
