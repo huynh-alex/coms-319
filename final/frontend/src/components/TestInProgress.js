@@ -6,16 +6,22 @@ export function TestInProgress({ isActive, changePage, userInfo }) {
   const [benchmarkResults, setBenchmarkResults] = useState({});
   const [benchmarksCompleted, setBenchmarksCompleted] = useState({ count: 0 });
 
+  const benchmarkNames = [
+    "10,000 Digits of Pi",
+    "1024 Square Integer Matrix Multiply",
+    "1024 Square Floating Point Matrix Multiply",
+    "Sort 100 Million Numbers",
+    "Sum of First 100,000 Primes",
+  ];
+
   useEffect(() => {
-    console.log(benchmarksCompleted.count, benchmarkNames.length);
-    if (benchmarksCompleted.count == benchmarkNames.length) {
+    if (benchmarksCompleted.count === benchmarkNames.length) {
       const saveResultsButton = document.getElementById("saveResultsButton");
       saveResultsButton.disabled = false;
       saveResultsButton.removeAttribute("disabled");
     }
-  }, [benchmarksCompleted]);
+  }, [benchmarksCompleted, benchmarkNames.length]);
 
-  const benchmarkNames = ["10,000 Digits of Pi", "1024 Square Integer Matrix Multiply", "1024 Square Floating Point Matrix Multiply", "Sort 100 Million Numbers", "Sum of First 100,000 Primes"];
   const benchmarkLocations = [
     "./Benchmarks/DigitsOfPi.js",
     "./Benchmarks/IntegerMatrixMultiply.js",
@@ -47,10 +53,11 @@ export function TestInProgress({ isActive, changePage, userInfo }) {
   }, [isActive]);
 
   useEffect(() => {
-    console.log(benchmarkResults);
+    console.log("New results: ", benchmarkResults);
   }, [benchmarkResults]);
 
   function saveResults() {
+    console.log("Saving results");
     // Construct benchmark object to send to API
     var benchmarkObject = {};
     for (var i in benchmarkNames) {
@@ -85,28 +92,31 @@ export function TestInProgress({ isActive, changePage, userInfo }) {
   async function startBenchmarks() {
     for (var i in benchmarkNames) {
       await new Promise((resolve) => {
+        let benchmarkName = benchmarkNames[i];
+        let benchmarkLocation = benchmarkLocations[i];
+
         var start = performance.now();
-        var myWorker = new Worker(benchmarkLocations[i]);
+        var myWorker = new Worker(benchmarkLocation);
         myWorker.postMessage("Start");
 
         myWorker.onmessage = function (e) {
           var end = performance.now();
-          // console.log(`Worker completed with value ${e.data}`);
 
           // convert to seconds
           var timeInSecs = (end - start) / 1000;
-          // round to 3 decimals
-          var roundedTime = Math.round(timeInSecs * 1000) / 1000;
+          // round to 4 decimals
+          var roundedTime = Math.round(timeInSecs * 10000) / 10000;
 
+          console.log(benchmarkName);
           setBenchmarkResults((benchmarkResults) => ({
             ...benchmarkResults,
-            [benchmarkNames[i]]: roundedTime,
+            [benchmarkName]: roundedTime,
           }));
-          const cell = document.getElementById(benchmarkNames[i]);
+          const cell = document.getElementById(benchmarkName);
           cell.innerHTML = roundedTime;
 
           setBenchmarksCompleted((prevState) => ({
-            count: prevState.count + 1
+            count: prevState.count + 1,
           }));
           resolve();
         };
@@ -141,7 +151,6 @@ export function TestInProgress({ isActive, changePage, userInfo }) {
         <div style={{ position: "absolute", bottom: "1rem", right: "1rem" }}>
           <button
             id="saveResultsButton"
-            disabled
             onClick={() => {
               saveResults();
             }}

@@ -4,7 +4,8 @@ onmessage = function (e) {
   let sum = 0;
   let numPrimes = 0;
   let currentPrime = 2;
-  let maxPrimes = 100000;
+  // let maxPrimes = 100000;
+  let maxPrimes = 10000;
 
   while (numPrimes < maxPrimes) {
     let isPrime = true;

@@ -2,8 +2,9 @@ onmessage = function (e) {
   const millis = Date.now();
 
   let arr = [];
-
-  for (let i = 100000000; i > 0; i--) {
+  // let size = 100000000;
+  let size =  1000000;
+  for (let i = size; i > 0; i--) {
     arr.push(i);
   }
 
