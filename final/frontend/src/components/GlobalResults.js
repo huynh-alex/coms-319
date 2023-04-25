@@ -2,87 +2,112 @@ import { getBenchmarks } from "../services/benchmarks";
 import $ from "jquery";
 import "datatables.net-dt/css/jquery.dataTables.min.css";
 import "datatables.net/js/jquery.dataTables.min.js";
-
+import { OverlayTrigger, Tooltip } from "react-bootstrap";
 import React, { useState, useEffect } from "react";
 
 export function GlobalResults({ isActive }) {
   const [benchmarks, setBenchmarks] = useState([]);
 
-  const [showModal, setShowModal] = useState(false);
+  const [modalBool, setModalBool] = useState(true);
 
-  const openModal = () => {
-    setShowModal(true);
-  };
-
-  const closeModal = () => {
-    // setShowModal(false);
-  };
+  const [rows, setRows] = useState([]);
 
   useEffect(() => {
-    getBenchmarks().then((res) => {
-      console.log(res);
-      setBenchmarks(res);
-    });
+    if (isActive) {
+      console.log(modalBool);
+      getBenchmarks().then((res) => {
+        console.log(res);
+        setBenchmarks(res);
+      });
+    }
   }, [isActive]);
 
   useEffect(() => {
-    console.log(showModal);
-  }, [showModal]);
-
-  useEffect(() => {
-    console.log("Updating benchmarks");
-    if (document.getElementById("benchmarks-table-body")) {
-      const benchmarksTableBody = document.getElementById(
-        "benchmarks-table-body"
-      );
-      const regex = /test\d+/;
-      var newRow;
-      if (benchmarks && isActive) {
-        for (let benchmark of benchmarks) {
-          newRow = benchmarksTableBody.insertRow();
-
-          const cellNames = [
-            "Total",
-            "Test1",
-            "Test2",
-            "Test3",
-            "Test4",
-            "Test5",
-            "Signature",
-          ];
-
-          for (let i = 0; i < cellNames.length; i++) {
-            const cell = newRow.insertCell(i);
-
-            if (cellNames[i] === "Total") {
-              let total = 0;
-              for (let benchmarkKey in benchmark) {
-                if (regex.test(benchmarkKey)) {
-                  total += parseFloat(benchmark[benchmarkKey]);
-                }
-              }
-              cell.textContent = total;
-            } else if (cellNames[i] === "Signature") {
-            
-              const button = document.createElement("button");
-              button.textContent = benchmark[cellNames[i].toLowerCase()];
-              button.addEventListener("click", () => {
-                setShowModal(true);
-                console.log(showModal)
-              });
-              cell.appendChild(button);
-            } else {
-              cell.textContent = benchmark[cellNames[i].toLowerCase()];
-            }
-          }
-        }
-      }
+    if (isActive) {
+      setRows([]);
       $(document).ready(function () {
         $("#dtBasicExample").DataTable();
         $(".dataTables_length").addClass("bs-select");
       });
+      if (document.getElementById("benchmarks-table-body")) {
+        if (benchmarks && isActive) {
+          const benchmarksTableBody = document.getElementById(
+            "benchmarks-table-body"
+          );
+          const regex = /test\d+/;
+          var rows = [];
+
+          for (let benchmark of benchmarks) {
+            const cellNames = [
+              "Total",
+              "Test1",
+              "Test2",
+              "Test3",
+              "Test4",
+              "Test5",
+              "Signature",
+            ];
+
+            let rowContent = [];
+            for (let i = 0; i < cellNames.length; i++) {
+              if (cellNames[i] === "Total") {
+                let total = 0;
+                for (let benchmarkKey in benchmark) {
+                  if (regex.test(benchmarkKey)) {
+                    total += parseFloat(benchmark[benchmarkKey]);
+                  }
+                }
+                rowContent.push(total);
+              } else {
+                rowContent.push(benchmark[cellNames[i].toLowerCase()]);
+              }
+            }
+            rows.push(rowContent);
+          }
+          setRows(rows);
+        }
+      }
     }
   }, [benchmarks]);
+
+  function addTooltip(row, rowIndex) {
+    if (benchmarks) {
+      var signature = row[6];
+
+      var tooltip = <Tooltip></Tooltip>;
+      for (var benchmark of benchmarks) {
+        if (benchmark.signature === signature) {
+          tooltip = (
+            <Tooltip className="userinfo-tooltip" style={{ maxWidth: "500px" }}>
+              CPU cores : {benchmark.cpu_cores}
+              <br></br>
+              CPU architecture : {benchmark.cpu_arch}
+              <br></br>
+              Ram : {benchmark.ram}+ GB
+              <br></br>
+              OS : {benchmark.os}
+              <br></br>
+              Browser : {benchmark.browser}
+              <br></br>
+              Engine : {benchmark.engine}
+              <br></br>
+              Device : {benchmark.device}
+            </Tooltip>
+          );
+        }
+      }
+
+      return (
+        <OverlayTrigger key={rowIndex} placement="bottom" overlay={tooltip}>
+          <tr key={rowIndex}>
+            {row.map((cell, cellIndex) => (
+              <td key={cellIndex}>{cell}</td>
+            ))}
+          </tr>
+        </OverlayTrigger>
+      );
+    }
+  }
 
   return !isActive ? (
     <></>
@@ -90,40 +115,6 @@ export function GlobalResults({ isActive }) {
     <>
       <main className="col-md-9 ms-sm-auto col-lg-10 px-md-4">
         <div className="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3">
-          {showModal && (
-            <div className="modal fade" tabIndex="-1" role="dialog">
-              <div className="modal-dialog" role="document">
-                <div className="modal-content">
-                  <div className="modal-header">
-                    <h5 className="modal-title">Modal title</h5>
-                    <button
-                      type="button"
-                      className="close"
-                      data-dismiss="modal"
-                      aria-label="Close"
-                      onClick={closeModal}
-                    >
-                      <span aria-hidden="true">&times;</span>
-                    </button>
-                  </div>
-                  <div className="modal-body">...</div>
-                  <div className="modal-footer">
-                    <button
-                      type="button"
-                      className="btn btn-secondary"
-                      data-dismiss="modal"
-                      onClick={closeModal}
-                    >
-                      Close
-                    </button>
-                    <button type="button" className="btn btn-primary">
-                      Save changes
-                    </button>
-                  </div>
-                </div>
-              </div>
-            </div>
-          )}
           <div className="container">
             <div className="col">
               <div className="row">
@@ -131,7 +122,7 @@ export function GlobalResults({ isActive }) {
                 <table
                   id="dtBasicExample"
                   className="table table-striped table-bordered table-sm"
-                  cellspacing="0"
+                  cellSpacing="0"
                   width="100%"
                 >
                   <thead className="thead-dark">
@@ -156,7 +147,9 @@ export function GlobalResults({ isActive }) {
                       <th scope="col">User Signature</th>
                     </tr>
                   </thead>
-                  <tbody id="benchmarks-table-body"></tbody>
+                  <tbody id="benchmarks-table-body">
+                    {rows.map((row, index) => addTooltip(row, index))}
+                  </tbody>
                 </table>
               </div>
             </div>
