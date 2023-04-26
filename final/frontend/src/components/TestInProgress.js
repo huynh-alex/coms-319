@@ -1,11 +1,19 @@
 import React, { useState, useEffect } from "react";
 import ReactLoading from "react-loading";
 import { createBenchmark } from "../services/benchmarks";
+import { updateBenchmark } from "../services/benchmarks";
 
-export function TestInProgress({ isActive, changePage, userInfo }) {
+export function TestInProgress({
+  isActive,
+  changePage,
+  userInfo,
+  userExists,
+  setUserExists,
+}) {
   const [benchmarkResults, setBenchmarkResults] = useState({});
   const [benchmarksCompleted, setBenchmarksCompleted] = useState({ count: 0 });
   const [buttonEnabled, setButtonEnabled] = useState(false);
+  const [buttonText, setButtonText] = useState("Create Results");
 
   const benchmarkNames = [
     "10,000 Digits of Pi",
@@ -17,9 +25,8 @@ export function TestInProgress({ isActive, changePage, userInfo }) {
 
   useEffect(() => {
     if (benchmarksCompleted.count === benchmarkNames.length) {
+      console.log("enabling button");
       setButtonEnabled(true);
-      // const saveResultsButton = document.getElementById("saveResultsButton");
-      // saveResultsButton.disabled = false;
     }
   }, [benchmarksCompleted]);
 
@@ -34,6 +41,11 @@ export function TestInProgress({ isActive, changePage, userInfo }) {
   useEffect(() => {
     if (isActive) {
       const tableBody = document.getElementById("table-body");
+
+      console.log(userInfo);
+      if (userExists) {
+        setButtonText("Update Results");
+      }
 
       for (var i in benchmarkNames) {
         if (!document.getElementById(benchmarkNames[i])) {
@@ -55,7 +67,9 @@ export function TestInProgress({ isActive, changePage, userInfo }) {
 
   function saveResults() {
     console.log("Saving results");
+    console.log(userInfo);
     // Construct benchmark object to send to API
+
     var benchmarkObject = {};
     for (var i in benchmarkNames) {
       benchmarkObject[`test${parseInt(i) + 1}`] =
@@ -72,22 +86,34 @@ export function TestInProgress({ isActive, changePage, userInfo }) {
     console.log(benchmarkObject);
 
     // Call API
-    createBenchmark(benchmarkObject)
-      .then(() => {
-        // const saveResultsButton = document.getElementById("saveResultsButton");
-        setButtonEnabled(false);
-
-        // saveResultsButton.disabled = true;
-        // console.log("Then");
-      })
-      .catch(() => {
-        console.log("Catch");
-      })
-      .finally(() => {
-        console.log("Finally");
-      });
-
-    // changePage("GlobalResults");
+    if (buttonText === "Update Results") {
+      updateBenchmark(benchmarkObject)
+        .then(() => {
+          userInfo = benchmarkObject;
+          setButtonEnabled(false);
+          setUserExists(true);
+        })
+        .catch(() => {
+          console.log("Catch");
+        })
+        .finally(() => {
+          console.log("Finally");
+        });
+    }
+    else if (buttonText === "Create Results") {
+      createBenchmark(benchmarkObject)
+        .then(() => {
+          userInfo = benchmarkObject;
+          setButtonEnabled(false);
+          setUserExists(true);
+        })
+        .catch(() => {
+          console.log("Catch");
+        })
+        .finally(() => {
+          console.log("Finally");
+        });
+    }
   }
 
   async function startBenchmarks() {
@@ -166,7 +192,7 @@ export function TestInProgress({ isActive, changePage, userInfo }) {
           className="btn btn-success btn-lg"
           disabled={!buttonEnabled}
         >
-          Save results
+          {buttonText}
         </button>
       </div>
     </div>

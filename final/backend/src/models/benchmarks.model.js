@@ -83,14 +83,14 @@ Benchmark.getBySignature = (signature, resultCallback) => {
 Benchmark.deleteBenchmark = (signature, resultCallback) => {
   sql.query("DELETE FROM benchmarks WHERE signature = ?", [signature], (err) => {
     if (err) {
-      console.log(`Error: ${err.message}`);
       if (err.sqlMessage) {
         console.log(`SQL Error: ${err.sqlMessage}`);
       }
       resultCallback(err, null);
       return;
     }
-    resultCallback({});
+    resultCallback(undefined);
+    return;
   });
 };
 

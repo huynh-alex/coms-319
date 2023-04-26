@@ -31,7 +31,7 @@ const update = (req, res) => {
 
   const updatedBenchmark = new Benchmark(req.body);
 
-  User.update(req.body.ua, updatedBenchmark, (err) => {
+  Benchmark.update(req.body.signature, updatedBenchmark, (err) => {
     if (err) {
       res.status(500).send({
         message: "Unexpected error from updating benchmark.",
@@ -67,8 +67,9 @@ const getBySignature = (req, res) => {
 const deleteBenchmark = (req, res) => {
   Benchmark.deleteBenchmark(req.body.signature, (err, benchmark) => {
     if (err) {
+      console.log(err);
       res.status(500).send({
-        message: "Unexpected error from getting all benchmarks.",
+        message: "Unexpected error from deleting benchmarks.",
       });
     }
     res.send(benchmark);

@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { getBenchmark } from "../services/benchmarks";
 import { deleteBenchmark } from "../services/benchmarks";
 
-export function MyResults({ isActive, userInfo }) {
+export function MyResults({ isActive, userInfo, userExists }) {
   const [benchmark, setBenchmark] = useState({});
   const [buttonEnabled, setButtonEnabled] = useState(false)
 
@@ -27,7 +27,7 @@ export function MyResults({ isActive, userInfo }) {
   };
 
   useEffect(() => {
-    if (userInfo && userInfo.signature) {
+    if (userInfo && userExists) {
       getBenchmark(userInfo.signature)
         .then((res) => {
           console.log(res);
@@ -37,7 +37,7 @@ export function MyResults({ isActive, userInfo }) {
     } else {
       setBenchmark({});
     }
-  }, [isActive]);
+  }, [isActive, userExists]);
 
   useEffect(() => {
     if (document.getElementById("userinfo-table-body")) {

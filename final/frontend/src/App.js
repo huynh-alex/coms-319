@@ -11,6 +11,7 @@ import { UserInfo } from "./components/UserInfo";
 function App() {
   const [page, changePage] = useState("Benchmark");
   const [userInfo, setUserInfo] = useState({});
+  const [userExists, setUserExists] = useState(false);
 
   useEffect(() => {
     console.log("User's info: ", userInfo);
@@ -25,6 +26,7 @@ function App() {
           isActive={page === "MyResults"}
           changePage={changePage}
           userInfo={userInfo}
+          userExists={userExists}
         />
         <GlobalResults
           isActive={page === "GlobalResults"}
@@ -34,8 +36,10 @@ function App() {
           isActive={page === "TestInProgress"}
           changePage={changePage}
           userInfo={userInfo}
+          userExists={userExists}
+          setUserExists={setUserExists}
         />
-        <UserInfo setUserInfo={setUserInfo} />
+        <UserInfo setUserInfo={setUserInfo} setUserExists={setUserExists} />
       </div>
     </div>
   );

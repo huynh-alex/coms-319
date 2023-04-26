@@ -43,7 +43,7 @@ export async function createBenchmark(benchmark) {
 
 export async function updateBenchmark(benchmark) {
   const res = await fetch(`${BASE_URL}/benchmarks/`, {
-    method: "PATCH",
+    method: "PUT",
     body: JSON.stringify(benchmark),
     headers: {
       "Content-Type": "application/json",
