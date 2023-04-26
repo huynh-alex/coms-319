@@ -24,17 +24,14 @@ function App() {
         <Benchmark isActive={page === "Benchmark"} changePage={changePage} />
         <MyResults
           isActive={page === "MyResults"}
-          changePage={changePage}
           userInfo={userInfo}
           userExists={userExists}
         />
         <GlobalResults
           isActive={page === "GlobalResults"}
-          changePage={changePage}
         />
         <TestInProgress
           isActive={page === "TestInProgress"}
-          changePage={changePage}
           userInfo={userInfo}
           userExists={userExists}
           setUserExists={setUserExists}

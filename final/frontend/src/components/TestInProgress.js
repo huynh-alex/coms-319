@@ -5,7 +5,6 @@ import { updateBenchmark } from "../services/benchmarks";
 
 export function TestInProgress({
   isActive,
-  changePage,
   userInfo,
   userExists,
   setUserExists,

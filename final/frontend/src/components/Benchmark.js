@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 
 export function Benchmark({ isActive, changePage }) {
-  function testRun(){
+  function testRun() {
     changePage("TestInProgress");
   }
   return !isActive ? (
@@ -13,46 +13,67 @@ export function Benchmark({ isActive, changePage }) {
           Benchmark
         </div>
         <div>
-            <button id="Testing-button"
+          <button
+            id="Testing-button"
             onClick={() => {
               testRun();
             }}
-            className="bg-green-500 hover:bg-green-700 py-4 px-4 border-green-700 rounded"
-            >
-                Run Benchmark
+            className="btn btn-success btn-lg"
+          >
+            Run Benchmark
+          </button>
+        </div>
+        <br></br>
+        <div className="accordion w-50 mx-auto" id="sub-accordionExample">
+          <div className="accordion-item">
+            <h2 className="accordion-header" id="sub-headingOne">
+              <button
+                className="accordion-button"
+                type="button"
+                data-bs-toggle="collapse"
+                data-bs-target="#sub-collapseOne"
+                aria-expanded="true"
+                aria-controls="collapseOne"
+              >
+                FAQ #1
               </button>
-              
+            </h2>
+            <div
+              id="sub-collapseOne"
+              className="accordion-collapse collapse"
+              aria-labelledby="sub-headingOne"
+              data-bs-parent="#collapseOne"
+            >
+              <div className="accordion-body">
+                <strong>This is what a Benchmark is.</strong>
+              </div>
+            </div>
           </div>
-                <div className="accordion" id="sub-accordionExample">
-                  <div className="accordion-item">
-                    <h2 className="accordion-header" id="sub-headingOne">
-                      <button className="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#sub-collapseOne" aria-expanded="true" aria-controls="collapseOne">
-                        FAQ #1
-                      </button>
-                    </h2>
-                    <div id="sub-collapseOne" className="accordion-collapse collapse" aria-labelledby="sub-headingOne" data-bs-parent="#collapseOne">
-                      <div className="accordion-body">
-                        <strong>This is what a Benchmark is.</strong>
-                      </div>
-                    </div>
-                  </div>
-                  <div className="accordion-item">
-                    <h2 className="accordion-header" id="sub-headingTwo">
-                      <button className="accordion-button collapsed" type="buttonn" data-bs-toggle="collapse" data-bs-target="#sub-collapseTwo" aria-expanded="false" aria-controls="sub-collapseTwo">
-                        FAQ #2
-                      </button>
-                    </h2>
-                    <div id="sub-collapseTwo" className="accordion-collapse collapse" aria-labelledby="sub-headingTwo" data-bs-parent="#collapseOne">
-                      <div className="accordion-body">
-                        <strong>This is how a Benchmark works.</strong>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              
-            
-          
-        
+          <div className="accordion-item">
+            <h2 className="accordion-header" id="sub-headingTwo">
+              <button
+                className="accordion-button collapsed"
+                type="buttonn"
+                data-bs-toggle="collapse"
+                data-bs-target="#sub-collapseTwo"
+                aria-expanded="false"
+                aria-controls="sub-collapseTwo"
+              >
+                FAQ #2
+              </button>
+            </h2>
+            <div
+              id="sub-collapseTwo"
+              className="accordion-collapse collapse"
+              aria-labelledby="sub-headingTwo"
+              data-bs-parent="#collapseOne"
+            >
+              <div className="accordion-body">
+                <strong>This is how a Benchmark works.</strong>
+              </div>
+            </div>
+          </div>
+        </div>
       </main>
     </>
   );
