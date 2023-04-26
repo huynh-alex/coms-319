@@ -123,7 +123,7 @@ export function TestInProgress({ isActive, changePage, userInfo }) {
   return !isActive ? (
     <></>
   ) : (
-    <>
+    <div>
       <main className="col-md-9 ms-sm-auto col-lg-10 px-md-4">
         <div className="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
           <strong>Test in Progress</strong>
@@ -144,18 +144,19 @@ export function TestInProgress({ isActive, changePage, userInfo }) {
           <tbody id="table-body"></tbody>
         </table>
 
-        <div style={{ position: "absolute", bottom: "1rem", right: "1rem" }}>
+        
+      </main>
+      <div style={{ position: "absolute", bottom: "1rem", right: "1rem" }}>
           <button
             id="saveResultsButton"
             onClick={() => {
               saveResults();
             }}
-            className="bg-green-500 hover:bg-green-700 py-4 px-4 border-green-700 rounded"
+            className="btn btn-success btn-lg"
           >
             Save results
           </button>
         </div>
-      </main>
-    </>
+    </div>
   );
 }

@@ -97,7 +97,7 @@ export function MyResults({ isActive, userInfo }) {
   return !isActive ? (
     <></>
   ) : (
-    <>
+    <div>
       <main className="col-md-9 ms-sm-auto col-lg-10 px-md-4">
         <div className="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3">
           <div className="container">
@@ -125,19 +125,19 @@ export function MyResults({ isActive, userInfo }) {
                 </table>
               </div>
             </div>
-            <div style={{ position: "absolute", top: "1rem", right: "1rem" }}>
-              <button
-                onClick={() => {
-                  deleteResults();
-                }}
-                className="bg-green-500 hover:bg-green-700 py-4 px-4 border-green-700 rounded"
-              >
-                Delete results
-              </button>
-            </div>
           </div>
         </div>
       </main>
-    </>
+      <div style={{ position: "absolute", top: "1rem", right: "1rem" }}>
+        <button
+          onClick={() => {
+            deleteResults();
+          }}
+          className="btn btn-danger btn-lg"
+        >
+          Delete results
+        </button>
+      </div>
+    </div>
   );
 }
