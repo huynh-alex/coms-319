@@ -90,7 +90,7 @@ Benchmark.deleteBenchmark = (signature, resultCallback) => {
       resultCallback(err, null);
       return;
     }
-    resultCallback(undefined);
+    resultCallback({});
   });
 };
 

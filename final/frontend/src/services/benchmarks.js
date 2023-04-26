@@ -10,12 +10,16 @@ export async function getBenchmarks() {
 }
 
 export async function getBenchmark(signature) {
-  const res = await fetch(`${BASE_URL}/benchmarks/${signature}`);
-  if (!res.ok) {
-    throw new Error(res.statusText);
+  try {
+    const res = await fetch(`${BASE_URL}/benchmarks/${signature}`);
+    if (!res.ok) {
+      throw new Error(res.statusText);
+    }
+    const benchmark = await res.json();
+    return benchmark;
+  } catch (err) {
+    return {}
   }
-  const benchmark = await res.json();
-  return benchmark;
 }
 
 export async function createBenchmark(benchmark) {
@@ -61,4 +65,5 @@ export async function deleteBenchmark(benchmark) {
   if (!res.ok) {
     throw new Error(res.statusText);
   }
+  return {};
 }

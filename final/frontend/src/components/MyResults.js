@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { getBenchmark } from "../services/benchmarks";
+import { deleteBenchmark } from "../services/benchmarks";
 
 export function MyResults({ isActive, userInfo }) {
   const [benchmark, setBenchmark] = useState({});
@@ -25,11 +26,15 @@ export function MyResults({ isActive, userInfo }) {
   };
 
   useEffect(() => {
-    if (userInfo.signature) {
-      getBenchmark(userInfo.signature).then((res) => {
-        console.log(res);
-        setBenchmark(res);
-      });
+    if (userInfo && userInfo.signature) {
+      getBenchmark(userInfo.signature)
+        .then((res) => {
+          console.log(res);
+          setBenchmark(res);
+        })
+        .catch((err) => {});
+    } else {
+      setBenchmark({});
     }
   }, [isActive]);
 
@@ -39,7 +44,7 @@ export function MyResults({ isActive, userInfo }) {
       const scoresTableBody = document.getElementById("scores-table-body");
       const regex = /test\d+/;
       var newRow;
-      if (benchmark && isActive) {
+      if (Object.keys(benchmark).length > 0 && isActive) {
         Object.keys(benchmark).forEach((key) => {
           if (regex.test(key)) newRow = scoresTableBody.insertRow();
           else newRow = userinfoTableBody.insertRow();
@@ -60,11 +65,10 @@ export function MyResults({ isActive, userInfo }) {
             newCell2.innerHTML = listElement;
           } else if (key === "test_date") {
             let d = new Date(benchmark[key]);
-            console.log(d);
             var datestring =
               d.getMonth() +
               "/" +
-              (d.getDate()) +
+              d.getDate() +
               "/" +
               d.getFullYear() +
               " " +
@@ -79,6 +83,16 @@ export function MyResults({ isActive, userInfo }) {
       }
     }
   }, [benchmark]);
+
+  function deleteResults() {
+    deleteBenchmark(benchmark).then((newBenchmark) => {
+      setBenchmark(benchmark);
+      const userinfoTableBody = document.getElementById("userinfo-table-body");
+      const scoresTableBody = document.getElementById("scores-table-body");
+      userinfoTableBody.innerHTML = "";
+      scoresTableBody.innerHTML = "";
+    });
+  }
 
   return !isActive ? (
     <></>
@@ -110,6 +124,16 @@ export function MyResults({ isActive, userInfo }) {
                   <tbody id="scores-table-body"></tbody>
                 </table>
               </div>
+            </div>
+            <div style={{ position: "absolute", top: "1rem", right: "1rem" }}>
+              <button
+                onClick={() => {
+                  deleteResults();
+                }}
+                className="bg-green-500 hover:bg-green-700 py-4 px-4 border-green-700 rounded"
+              >
+                Delete results
+              </button>
             </div>
           </div>
         </div>

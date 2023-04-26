@@ -7,14 +7,10 @@ import React, { useState, useEffect } from "react";
 
 export function GlobalResults({ isActive }) {
   const [benchmarks, setBenchmarks] = useState([]);
-
-  const [modalBool, setModalBool] = useState(true);
-
   const [rows, setRows] = useState([]);
 
   useEffect(() => {
     if (isActive) {
-      console.log(modalBool);
       getBenchmarks().then((res) => {
         console.log(res);
         setBenchmarks(res);

@@ -65,13 +65,13 @@ const getBySignature = (req, res) => {
 };
 
 const deleteBenchmark = (req, res) => {
-  Benchmark.deleteBenchmark(req.body.ua, (err, user) => {
+  Benchmark.deleteBenchmark(req.body.signature, (err, benchmark) => {
     if (err) {
       res.status(500).send({
         message: "Unexpected error from getting all benchmarks.",
       });
     }
-    res.send(user);
+    res.send(benchmark);
   });
 };
 
