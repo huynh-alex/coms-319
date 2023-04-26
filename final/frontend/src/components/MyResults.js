@@ -4,6 +4,7 @@ import { deleteBenchmark } from "../services/benchmarks";
 
 export function MyResults({ isActive, userInfo }) {
   const [benchmark, setBenchmark] = useState({});
+  const [buttonEnabled, setButtonEnabled] = useState(false)
 
   const userInfoPrettify = {
     signature: "Signature",
@@ -80,12 +81,14 @@ export function MyResults({ isActive, userInfo }) {
             newCell2.innerHTML = benchmark[key];
           }
         });
+        setButtonEnabled(true);
       }
     }
   }, [benchmark]);
 
   function deleteResults() {
     deleteBenchmark(benchmark).then((newBenchmark) => {
+      setButtonEnabled(false);
       setBenchmark(benchmark);
       const userinfoTableBody = document.getElementById("userinfo-table-body");
       const scoresTableBody = document.getElementById("scores-table-body");
@@ -134,6 +137,7 @@ export function MyResults({ isActive, userInfo }) {
             deleteResults();
           }}
           className="btn btn-danger btn-lg"
+          disabled={!buttonEnabled}
         >
           Delete results
         </button>

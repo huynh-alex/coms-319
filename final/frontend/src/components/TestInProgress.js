@@ -5,6 +5,7 @@ import { createBenchmark } from "../services/benchmarks";
 export function TestInProgress({ isActive, changePage, userInfo }) {
   const [benchmarkResults, setBenchmarkResults] = useState({});
   const [benchmarksCompleted, setBenchmarksCompleted] = useState({ count: 0 });
+  const [buttonEnabled, setButtonEnabled] = useState(false);
 
   const benchmarkNames = [
     "10,000 Digits of Pi",
@@ -16,11 +17,11 @@ export function TestInProgress({ isActive, changePage, userInfo }) {
 
   useEffect(() => {
     if (benchmarksCompleted.count === benchmarkNames.length) {
-      const saveResultsButton = document.getElementById("saveResultsButton");
-      saveResultsButton.disabled = false;
-      saveResultsButton.removeAttribute("disabled");
+      setButtonEnabled(true);
+      // const saveResultsButton = document.getElementById("saveResultsButton");
+      // saveResultsButton.disabled = false;
     }
-  }, [benchmarksCompleted, benchmarkNames.length]);
+  }, [benchmarksCompleted]);
 
   const benchmarkLocations = [
     "./Benchmarks/DigitsOfPi.js",
@@ -52,7 +53,6 @@ export function TestInProgress({ isActive, changePage, userInfo }) {
     }
   }, [isActive]);
 
-
   function saveResults() {
     console.log("Saving results");
     // Construct benchmark object to send to API
@@ -74,7 +74,11 @@ export function TestInProgress({ isActive, changePage, userInfo }) {
     // Call API
     createBenchmark(benchmarkObject)
       .then(() => {
-        console.log("Then");
+        // const saveResultsButton = document.getElementById("saveResultsButton");
+        setButtonEnabled(false);
+
+        // saveResultsButton.disabled = true;
+        // console.log("Then");
       })
       .catch(() => {
         console.log("Catch");
@@ -130,7 +134,16 @@ export function TestInProgress({ isActive, changePage, userInfo }) {
         </div>
 
         <div className="d-flex justify-content-center align-items-center text-align-center">
-          <ReactLoading type="balls" color="#0000FF" height={100} width={200} />
+          {benchmarksCompleted.count !== benchmarkNames.length ? (
+            <ReactLoading
+              type="balls"
+              color="#0000FF"
+              height={100}
+              width={200}
+            />
+          ) : (
+            <div></div>
+          )}
         </div>
 
         <table style={{ marginTop: "10rem" }} className="table">
@@ -143,20 +156,19 @@ export function TestInProgress({ isActive, changePage, userInfo }) {
           </thead>
           <tbody id="table-body"></tbody>
         </table>
-
-        
       </main>
       <div style={{ position: "absolute", bottom: "1rem", right: "1rem" }}>
-          <button
-            id="saveResultsButton"
-            onClick={() => {
-              saveResults();
-            }}
-            className="btn btn-success btn-lg"
-          >
-            Save results
-          </button>
-        </div>
+        <button
+          id="saveResultsButton"
+          onClick={() => {
+            saveResults();
+          }}
+          className="btn btn-success btn-lg"
+          disabled={!buttonEnabled}
+        >
+          Save results
+        </button>
+      </div>
     </div>
   );
 }

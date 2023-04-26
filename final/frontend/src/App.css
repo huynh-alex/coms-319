@@ -159,3 +159,8 @@ table.dataTable thead .sorting_desc_disabled:before {
 .userinfo-tooltip > .tooltip-inner {
   max-width: 100%;
 }
+
+button:disabled {
+  background-color: gray;
+  color: lightgray;
+}
