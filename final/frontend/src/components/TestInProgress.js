@@ -40,6 +40,10 @@ export function TestInProgress({
 
   useEffect(() => {
     if (isActive) {
+      setButtonEnabled(false);
+      setBenchmarksCompleted((prevState) => ({
+        count: 0,
+      }));
       const tableBody = document.getElementById("table-body");
 
       console.log(userInfo);
@@ -99,8 +103,7 @@ export function TestInProgress({
         .finally(() => {
           console.log("Finally");
         });
-    }
-    else if (buttonText === "Create Results") {
+    } else if (buttonText === "Create Results") {
       createBenchmark(benchmarkObject)
         .then(() => {
           userInfo = benchmarkObject;
