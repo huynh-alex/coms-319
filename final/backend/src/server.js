@@ -6,6 +6,8 @@ import bodyParser from 'body-parser';
 import BenchmarkRoutes from "./routes/benchmark.routes.js";
 
 const PORT = process.env.PORT || 8080;
+const IP = process.env.IP || "10.90.72.120";
+
 const app = express();
 app.use(cors(), bodyParser.json());
 
@@ -15,6 +17,10 @@ app.get("/", (req, res) => {
 
 BenchmarkRoutes(app);
 
-app.listen(PORT, () => {
-  console.log(`Server is running on port ${PORT}.`);
+// app.listen(PORT, () => {
+//   console.log(`Server is running on port ${PORT}.`);
+// });
+
+app.listen(PORT, IP, () => {
+  console.log(`Server is running on ${IP}:${PORT}.`);
 });

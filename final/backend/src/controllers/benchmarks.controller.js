@@ -42,6 +42,7 @@ const update = (req, res) => {
 };
 
 const getAll = (req, res) => {
+  console.log("!");
   Benchmark.getAll((err, data) => {
     if (err) {
       res.status(500).send({
