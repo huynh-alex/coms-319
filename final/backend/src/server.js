@@ -5,8 +5,8 @@ import cors from 'cors';
 import bodyParser from 'body-parser';
 import BenchmarkRoutes from "./routes/benchmark.routes.js";
 
-const PORT = process.env.PORT || 8080;
-const IP = process.env.IP || "0.0.0.0";
+const PORT = process.env.BACKEND_PORT || 8080;
+const IP = process.env.BACKEND_IP || "0.0.0.0";
 
 const app = express();
 app.use(cors(), bodyParser.json());
