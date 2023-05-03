@@ -39,16 +39,15 @@ export function TestInProgress({
 
   useEffect(() => {
     if (isActive) {
+      if (userExists) {
+        setButtonText("Update Results");
+      }
+
       setButtonEnabled(false);
       setBenchmarksCompleted((prevState) => ({
         count: 0,
       }));
       const tableBody = document.getElementById("table-body");
-
-      console.log(userInfo);
-      if (userExists) {
-        setButtonText("Update Results");
-      }
 
       for (var i in benchmarkNames) {
         if (!document.getElementById(benchmarkNames[i])) {

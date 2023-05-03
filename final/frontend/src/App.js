@@ -1,6 +1,5 @@
 import { useState, useEffect } from "react";
 import "./App.css";
-// import { Sidebar } from "./Sidebar";
 import { Sidebar } from "./components/Sidebar";
 import { Benchmark } from "./components/Benchmark";
 import { GlobalResults } from "./components/GlobalResults";
