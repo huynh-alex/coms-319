@@ -1,8 +1,9 @@
-const BASE_URL = process.env.REACT_APP_API_URL;
+const BACKEND_IP = process.env.REACT_APP_BACKEND_IP;
+const BACKEND_PORT = process.env.REACT_APP_BACKEND_PORT;
 
 export async function getBenchmarks() {
   console.log("!");
-  const res = await fetch(`${BASE_URL}/benchmarks/`);
+  const res = await fetch(`${BACKEND_IP}:${BACKEND_PORT}/benchmarks/`);
   if (!res.ok) {
     throw new Error(res.statusText);
   }
@@ -12,7 +13,7 @@ export async function getBenchmarks() {
 
 export async function getBenchmark(signature) {
   try {
-    const res = await fetch(`${BASE_URL}/benchmarks/${signature}`);
+    const res = await fetch(`${BACKEND_IP}:${BACKEND_PORT}/benchmarks/${signature}`);
     if (!res.ok) {
       throw new Error(res.statusText);
     }
@@ -25,7 +26,7 @@ export async function getBenchmark(signature) {
 
 export async function createBenchmark(benchmark) {
   try {
-    const res = await fetch(`${BASE_URL}/benchmarks/`, {
+    const res = await fetch(`${BACKEND_IP}:${BACKEND_PORT}/benchmarks/`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -43,7 +44,7 @@ export async function createBenchmark(benchmark) {
 }
 
 export async function updateBenchmark(benchmark) {
-  const res = await fetch(`${BASE_URL}/benchmarks/`, {
+  const res = await fetch(`${BACKEND_IP}:${BACKEND_PORT}/benchmarks/`, {
     method: "PUT",
     body: JSON.stringify(benchmark),
     headers: {
@@ -56,7 +57,7 @@ export async function updateBenchmark(benchmark) {
 }
 
 export async function deleteBenchmark(benchmark) {
-  const res = await fetch(`${BASE_URL}/benchmarks/`, {
+  const res = await fetch(`${BACKEND_IP}:${BACKEND_PORT}/benchmarks/`, {
     method: "DELETE",
     body: JSON.stringify(benchmark),
     headers: {
