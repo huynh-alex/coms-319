@@ -27,9 +27,6 @@ export function GlobalResults({ isActive }) {
       });
       if (document.getElementById("benchmarks-table-body")) {
         if (benchmarks && isActive) {
-          const benchmarksTableBody = document.getElementById(
-            "benchmarks-table-body"
-          );
           const regex = /test\d+/;
           var rows = [];
 
@@ -53,7 +50,7 @@ export function GlobalResults({ isActive }) {
                     total += parseFloat(benchmark[benchmarkKey]);
                   }
                 }
-                rowContent.push(total);
+                rowContent.push(total.toFixed(4));
               } else {
                 rowContent.push(benchmark[cellNames[i].toLowerCase()]);
               }

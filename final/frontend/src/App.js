@@ -11,6 +11,7 @@ function App() {
   const [page, changePage] = useState("Benchmark");
   const [userInfo, setUserInfo] = useState({});
   const [userExists, setUserExists] = useState(false);
+  const [sidebarClickable, setSiderbarClickable] = useState(true);
 
   useEffect(() => {
     console.log("User's info: ", userInfo);
@@ -19,7 +20,7 @@ function App() {
   return (
     <div className="container-fluid">
       <div className="row">
-        <Sidebar changePage={changePage} />
+        <Sidebar changePage={changePage} sidebarClickable={sidebarClickable} />
         <Benchmark isActive={page === "Benchmark"} changePage={changePage} />
         <MyResults
           isActive={page === "MyResults"}
@@ -27,14 +28,13 @@ function App() {
           userExists={userExists}
           setUserExists={setUserExists}
         />
-        <GlobalResults
-          isActive={page === "GlobalResults"}
-        />
+        <GlobalResults isActive={page === "GlobalResults"} />
         <TestInProgress
           isActive={page === "TestInProgress"}
           userInfo={userInfo}
           userExists={userExists}
           setUserExists={setUserExists}
+          setSiderbarClickable={setSiderbarClickable}
         />
         <UserInfo setUserInfo={setUserInfo} setUserExists={setUserExists} />
       </div>

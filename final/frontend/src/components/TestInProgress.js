@@ -8,6 +8,7 @@ export function TestInProgress({
   userInfo,
   userExists,
   setUserExists,
+  setSiderbarClickable,
 }) {
   const [benchmarkResults, setBenchmarkResults] = useState({});
   const [benchmarksCompleted, setBenchmarksCompleted] = useState({ count: 0 });
@@ -26,6 +27,7 @@ export function TestInProgress({
     if (benchmarksCompleted.count === benchmarkNames.length) {
       console.log("enabling button");
       setButtonEnabled(true);
+      setSiderbarClickable(true);
     }
   }, [benchmarksCompleted]);
 
@@ -118,6 +120,7 @@ export function TestInProgress({
   }
 
   async function startBenchmarks() {
+    setSiderbarClickable(false);
     for (var i in benchmarkNames) {
       await new Promise((resolve) => {
         let benchmarkName = benchmarkNames[i];
