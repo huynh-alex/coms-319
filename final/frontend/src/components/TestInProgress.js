@@ -8,6 +8,7 @@ export function TestInProgress({
   userInfo,
   userExists,
   setUserExists,
+  setSiderbarClickable,
 }) {
   const [benchmarkResults, setBenchmarkResults] = useState({});
   const [benchmarksCompleted, setBenchmarksCompleted] = useState({ count: 0 });
@@ -26,6 +27,7 @@ export function TestInProgress({
     if (benchmarksCompleted.count === benchmarkNames.length) {
       console.log("enabling button");
       setButtonEnabled(true);
+      setSiderbarClickable(true);
     }
   }, [benchmarksCompleted]);
 
@@ -39,16 +41,15 @@ export function TestInProgress({
 
   useEffect(() => {
     if (isActive) {
+      if (userExists) {
+        setButtonText("Update Results");
+      }
+
       setButtonEnabled(false);
       setBenchmarksCompleted((prevState) => ({
         count: 0,
       }));
       const tableBody = document.getElementById("table-body");
-
-      console.log(userInfo);
-      if (userExists) {
-        setButtonText("Update Results");
-      }
 
       for (var i in benchmarkNames) {
         if (!document.getElementById(benchmarkNames[i])) {
@@ -119,6 +120,7 @@ export function TestInProgress({
   }
 
   async function startBenchmarks() {
+    setSiderbarClickable(false);
     for (var i in benchmarkNames) {
       await new Promise((resolve) => {
         let benchmarkName = benchmarkNames[i];

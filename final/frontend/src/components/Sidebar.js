@@ -1,8 +1,8 @@
-export function Sidebar({ changePage }) {
+export function Sidebar({ changePage, sidebarClickable }) {
   function setActiveNavLink(id) {
     const navLinkElements = document.getElementsByClassName("nav-link");
     for (const navLinkElement of navLinkElements)
-        navLinkElement.classList.remove("active");
+      navLinkElement.classList.remove("active");
     const activeNavLink = document.getElementById(id);
     activeNavLink.classList.add("active");
   }
@@ -20,8 +20,10 @@ export function Sidebar({ changePage }) {
               aria-current="page"
               href="#"
               onClick={() => {
-                changePage("Benchmark");
-                setActiveNavLink("Benchmark")
+                if (sidebarClickable) {
+                  changePage("Benchmark");
+                  setActiveNavLink("Benchmark");
+                }
               }}
             >
               <span data-feather="home" className="align-text-bottom"></span>
@@ -34,8 +36,10 @@ export function Sidebar({ changePage }) {
               className="nav-link"
               href="#"
               onClick={() => {
-                changePage("MyResults");
-                setActiveNavLink("MyResults")
+                if (sidebarClickable) {
+                  changePage("MyResults");
+                  setActiveNavLink("MyResults");
+                }
               }}
             >
               <span data-feather="file" className="align-text-bottom"></span>
@@ -48,8 +52,10 @@ export function Sidebar({ changePage }) {
               className="nav-link"
               href="#"
               onClick={() => {
-                changePage("GlobalResults");
-                setActiveNavLink("GlobalResults")
+                if (sidebarClickable) {
+                  changePage("GlobalResults");
+                  setActiveNavLink("GlobalResults");
+                }
               }}
             >
               <span
