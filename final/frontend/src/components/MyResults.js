@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { getBenchmark } from "../services/benchmarks";
 import { deleteBenchmark } from "../services/benchmarks";
 
-export function MyResults({ isActive, userInfo, userExists }) {
+export function MyResults({ isActive, userInfo, userExists, setUserExists }) {
   const [benchmark, setBenchmark] = useState({});
   const [buttonEnabled, setButtonEnabled] = useState(false)
 
@@ -67,15 +67,18 @@ export function MyResults({ isActive, userInfo, userExists }) {
           } else if (key === "test_date") {
             let d = new Date(benchmark[key]);
             var datestring =
-              d.getMonth() +
+              (d.getMonth() + 1) +
               "/" +
-              d.getDate() +
+              (d.getDate() + 1) +
               "/" +
               d.getFullYear() +
               " " +
-              d.getHours() +
+              (d.getHours() > 13 ? d.getHours() - 12 : d.getHours()) +
               ":" +
-              d.getMinutes();
+              d.getMinutes() + 
+              " " + 
+              (d.getHours() > 13 ? "p.m." : "a.m.")
+              ;
             newCell2.innerHTML = datestring;
           } else {
             newCell2.innerHTML = benchmark[key];
@@ -88,6 +91,7 @@ export function MyResults({ isActive, userInfo, userExists }) {
 
   function deleteResults() {
     deleteBenchmark(benchmark).then((newBenchmark) => {
+      setUserExists(false);
       setButtonEnabled(false);
       setBenchmark(benchmark);
       const userinfoTableBody = document.getElementById("userinfo-table-body");

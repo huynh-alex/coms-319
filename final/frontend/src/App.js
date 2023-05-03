@@ -25,6 +25,7 @@ function App() {
           isActive={page === "MyResults"}
           userInfo={userInfo}
           userExists={userExists}
+          setUserExists={setUserExists}
         />
         <GlobalResults
           isActive={page === "GlobalResults"}
