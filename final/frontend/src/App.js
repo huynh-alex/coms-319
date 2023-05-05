@@ -20,7 +20,11 @@ function App() {
   return (
     <div className="container-fluid">
       <div className="row">
-        <Sidebar changePage={changePage} sidebarClickable={sidebarClickable} />
+        <Sidebar
+          page={page}
+          changePage={changePage}
+          sidebarClickable={sidebarClickable}
+        />
         <Benchmark isActive={page === "Benchmark"} changePage={changePage} />
         <MyResults
           isActive={page === "MyResults"}
@@ -35,6 +39,7 @@ function App() {
           userExists={userExists}
           setUserExists={setUserExists}
           setSiderbarClickable={setSiderbarClickable}
+          changePage={changePage}
         />
         <UserInfo setUserInfo={setUserInfo} setUserExists={setUserExists} />
       </div>
