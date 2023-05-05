@@ -13,6 +13,10 @@ export function Sidebar({ changePage, sidebarClickable }) {
     >
       <div className="position-sticky pt-3 sidebar-sticky">
         <ul className="nav flex-column">
+          <h2>
+              Speede.com
+          </h2>
+          <hr></hr>
           <li className="nav-item">
             <a
               id="Benchmark"
@@ -30,6 +34,7 @@ export function Sidebar({ changePage, sidebarClickable }) {
               Benchmark
             </a>
           </li>
+          <hr></hr>
           <li className="nav-item">
             <a
               id="MyResults"
@@ -46,6 +51,7 @@ export function Sidebar({ changePage, sidebarClickable }) {
               My Results
             </a>
           </li>
+          <hr></hr>
           <li className="nav-item">
             <a
               id="GlobalResults"
@@ -63,6 +69,26 @@ export function Sidebar({ changePage, sidebarClickable }) {
                 className="align-text-bottom"
               ></span>
               Global Results
+            </a>
+          </li>
+          <hr></hr>
+          <li className="nav-item">
+            <a
+              id="AboutUs"
+              className="nav-link"
+              href="#"
+              onClick={() => {
+                if (sidebarClickable) {
+                  changePage("AboutUs");
+                  setActiveNavLink("AboutUs");
+                }
+              }}
+            >
+              <span
+                data-feather="about"
+                className="align-text-bottom"
+              ></span>
+              About Us
             </a>
           </li>
         </ul>

@@ -9,12 +9,14 @@
     "datatables.net-dt": "^1.13.4",
     "dotenv": "^16.0.3",
     "jquery": "^3.6.4",
+    "nvm": "^0.0.4",
     "react": "^18.2.0",
     "react-bootstrap": "^2.7.4",
     "react-dom": "^18.2.0",
     "react-loading": "^2.0.3",
     "react-scripts": "5.0.1",
     "ua-parser-js": "^1.0.35",
+    "use": "^3.1.1",
     "web-vitals": "^2.1.4"
   },
   "scripts": {

@@ -166,8 +166,8 @@ export function TestInProgress({
         <div className="d-flex justify-content-center align-items-center text-align-center">
           {benchmarksCompleted.count !== benchmarkNames.length ? (
             <ReactLoading
-              type="balls"
-              color="#0000FF"
+              type="spokes"
+              color="black"
               height={100}
               width={200}
             />

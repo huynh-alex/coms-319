@@ -6,6 +6,7 @@ import { GlobalResults } from "./components/GlobalResults";
 import { MyResults } from "./components/MyResults";
 import { TestInProgress } from "./components/TestInProgress";
 import { UserInfo } from "./components/UserInfo";
+import { AboutUs } from "./components/AboutUs";
 
 function App() {
   const [page, changePage] = useState("Benchmark");
@@ -29,6 +30,7 @@ function App() {
           setUserExists={setUserExists}
         />
         <GlobalResults isActive={page === "GlobalResults"} />
+        <AboutUs isActive={page === "AboutUs"} />
         <TestInProgress
           isActive={page === "TestInProgress"}
           userInfo={userInfo}
