@@ -1,4 +1,4 @@
-export function Sidebar({ changePage, sidebarClickable }) {
+export function Sidebar({ page, changePage, sidebarClickable }) {
   function setActiveNavLink(id) {
     const navLinkElements = document.getElementsByClassName("nav-link");
     for (const navLinkElement of navLinkElements)
@@ -20,7 +20,7 @@ export function Sidebar({ changePage, sidebarClickable }) {
           <li className="nav-item">
             <a
               id="Benchmark"
-              className="nav-link active"
+              className={`nav-link ${page === ("Benchmark") ? "active" : ""}`}
               aria-current="page"
               href="#"
               onClick={() => {
@@ -38,7 +38,7 @@ export function Sidebar({ changePage, sidebarClickable }) {
           <li className="nav-item">
             <a
               id="MyResults"
-              className="nav-link"
+              className={`nav-link ${page === "MyResults" ? "active" : ""}`}
               href="#"
               onClick={() => {
                 if (sidebarClickable) {
@@ -55,7 +55,7 @@ export function Sidebar({ changePage, sidebarClickable }) {
           <li className="nav-item">
             <a
               id="GlobalResults"
-              className="nav-link"
+              className={`nav-link ${page === "GlobalResults" ? "active" : ""}`}
               href="#"
               onClick={() => {
                 if (sidebarClickable) {

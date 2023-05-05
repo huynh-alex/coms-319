@@ -2,20 +2,25 @@
 
 ## One time setup
 
-- Run `sql/baseline.sql`
-- In this directory, `./backend`, create a `.env` file with the following fields:
+1. Run `sql/baseline.sql`
+2.  In this directory, `./backend`, create a `.env` file with the following fields:
 
 ```
-PORT = <port of backend>
 DB_HOST = <localhost> or <ip address of VM>
 DB_NAME = "spede"
 DB_USER = <DB username>
 DB_PASSWORD = <DB password> 
 DB_PORT = 3306
+
+BACKEND_IP = <ip of VM> or <localhost>
+BACKEND_PORT = <port of backend>
 ```
-## Starting the server
+## Starting the backend server
 
 ```bash
+# Use the correct Node version
+$ nvm use
+
 # Install dependencies
 $ npm install
 

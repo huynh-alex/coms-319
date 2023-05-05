@@ -9,6 +9,7 @@ export function TestInProgress({
   userExists,
   setUserExists,
   setSiderbarClickable,
+  changePage,
 }) {
   const [benchmarkResults, setBenchmarkResults] = useState({});
   const [benchmarksCompleted, setBenchmarksCompleted] = useState({ count: 0 });
@@ -41,9 +42,7 @@ export function TestInProgress({
 
   useEffect(() => {
     if (isActive) {
-      if (userExists) {
-        setButtonText("Update Results");
-      }
+      setButtonText(userExists ? "Update Results" : "Create Results");
 
       setButtonEnabled(false);
       setBenchmarksCompleted((prevState) => ({
@@ -97,11 +96,11 @@ export function TestInProgress({
           setButtonEnabled(false);
           setUserExists(true);
         })
-        .catch(() => {
-          console.log("Catch");
+        .catch((err) => {
+          console.log(err);
         })
         .finally(() => {
-          console.log("Finally");
+          changePage("MyResults");
         });
     } else if (buttonText === "Create Results") {
       createBenchmark(benchmarkObject)
@@ -110,11 +109,11 @@ export function TestInProgress({
           setButtonEnabled(false);
           setUserExists(true);
         })
-        .catch(() => {
-          console.log("Catch");
+        .catch((err) => {
+          console.log(err);
         })
         .finally(() => {
-          console.log("Finally");
+          changePage("MyResults");
         });
     }
   }
