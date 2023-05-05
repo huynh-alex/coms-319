@@ -13,8 +13,8 @@ export function Sidebar({ page, changePage, sidebarClickable }) {
     >
       <div className="position-sticky pt-3 sidebar-sticky">
         <ul className="nav flex-column">
-          <h2>
-              Speede.com
+          <h2 className="pl-4">
+              Spede.com
           </h2>
           <hr></hr>
           <li className="nav-item">
