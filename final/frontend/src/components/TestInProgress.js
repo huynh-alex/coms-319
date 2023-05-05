@@ -42,9 +42,7 @@ export function TestInProgress({
 
   useEffect(() => {
     if (isActive) {
-      if (userExists) {
-        setButtonText("Update Results");
-      }
+      setButtonText(userExists ? "Update Results" : "Create Results");
 
       setButtonEnabled(false);
       setBenchmarksCompleted((prevState) => ({
