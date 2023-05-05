@@ -5,7 +5,7 @@ import "datatables.net/js/jquery.dataTables.min.js";
 import { OverlayTrigger, Tooltip } from "react-bootstrap";
 import React, { useState, useEffect } from "react";
 
-export function GlobalResults({ isActive }) {
+export function GlobalResults({ isActive, userInfo }) {
   const [benchmarks, setBenchmarks] = useState([]);
   const [rows, setRows] = useState([]);
 
@@ -65,6 +65,8 @@ export function GlobalResults({ isActive }) {
 
   function addTooltip(row, rowIndex) {
     if (benchmarks) {
+      console.log(Number(userInfo.signature) === Number(benchmarks[rowIndex].signature))
+
       var signature = row[6];
 
       var tooltip = <Tooltip></Tooltip>;
@@ -92,7 +94,7 @@ export function GlobalResults({ isActive }) {
 
       return (
         <OverlayTrigger key={rowIndex} placement="bottom" overlay={tooltip}>
-          <tr key={rowIndex}>
+          <tr key={rowIndex} className={`${Number(userInfo.signature) === Number(benchmarks[rowIndex].signature) ? "table-success" : ""}`}>
             {row.map((cell, cellIndex) => (
               <td key={cellIndex}>{cell}</td>
             ))}
@@ -114,7 +116,7 @@ export function GlobalResults({ isActive }) {
                 {/* <table style={{ marginTop: "5rem" }} className="table"> */}
                 <table
                   id="dtBasicExample"
-                  className="table table-striped table-bordered table-sm"
+                  className="table table-bordered table-sm"
                   cellSpacing="0"
                   width="100%"
                 >

@@ -33,7 +33,10 @@ function App() {
           userExists={userExists}
           setUserExists={setUserExists}
         />
-        <GlobalResults isActive={page === "GlobalResults"} />
+        <GlobalResults
+          isActive={page === "GlobalResults"}
+          userInfo={userInfo}
+        />
         <AboutUs isActive={page === "AboutUs"} />
         <TestInProgress
           isActive={page === "TestInProgress"}
