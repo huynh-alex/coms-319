@@ -148,7 +148,7 @@ export function Benchmark({ isActive, changePage }) {
                 <strong>
                   Alternatively, by clicking Global Results you can view the
                   scores of all users who have completed the benchmark. These
-                  results can be sorted.
+                  results can be sorted and searched.
                 </strong>
               </div>
             </div>
