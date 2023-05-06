@@ -12,7 +12,7 @@ const app = express();
 app.use(cors(), bodyParser.json());
 
 app.get("/", (req, res) => {
-  res.json({ version: "1.0.0" });
+  res.json({ name: "Spede" });
 });
 
 BenchmarkRoutes(app);
