@@ -14,10 +14,6 @@ function App() {
   const [userExists, setUserExists] = useState(false);
   const [sidebarClickable, setSiderbarClickable] = useState(true);
 
-  useEffect(() => {
-    console.log("User's info: ", userInfo);
-  }, [userInfo]);
-
   return (
     <div className="container-fluid">
       <div className="row">

@@ -30,7 +30,6 @@ export function MyResults({ isActive, userInfo, userExists, setUserExists }) {
     if (userInfo && userExists) {
       getBenchmark(userInfo.signature)
         .then((res) => {
-          console.log(res);
           setBenchmark(res);
         })
         .catch((err) => {});

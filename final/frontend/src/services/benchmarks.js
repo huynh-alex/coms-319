@@ -2,7 +2,6 @@ const BACKEND_IP = process.env.REACT_APP_BACKEND_IP;
 const BACKEND_PORT = process.env.REACT_APP_BACKEND_PORT;
 
 export async function getBenchmarks() {
-  console.log("!");
   const res = await fetch(`${BACKEND_IP}:${BACKEND_PORT}/benchmarks/`);
   if (!res.ok) {
     throw new Error(res.statusText);

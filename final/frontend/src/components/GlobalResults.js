@@ -12,7 +12,6 @@ export function GlobalResults({ isActive, userInfo }) {
   useEffect(() => {
     if (isActive) {
       getBenchmarks().then((res) => {
-        console.log(res);
         setBenchmarks(res);
       });
     }
@@ -65,10 +64,7 @@ export function GlobalResults({ isActive, userInfo }) {
 
   function addTooltip(row, rowIndex) {
     if (benchmarks) {
-      console.log(Number(userInfo.signature) === Number(benchmarks[rowIndex].signature))
-
       var signature = row[6];
-
       var tooltip = <Tooltip></Tooltip>;
       for (var benchmark of benchmarks) {
         if (benchmark.signature === signature) {

@@ -1,7 +1,6 @@
 import Benchmark from "../models/benchmarks.model.js";
 
 const create = (req, res) => {
-  console.log(req.body);
   if (!req.body) {
     res.status(400).send({ message: "Empty request body" });
     return;
@@ -42,7 +41,6 @@ const update = (req, res) => {
 };
 
 const getAll = (req, res) => {
-  console.log("!");
   Benchmark.getAll((err, data) => {
     if (err) {
       res.status(500).send({
